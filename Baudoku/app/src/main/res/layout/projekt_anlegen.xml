@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        app:srcCompat="@android:drawable/gallery_thumb"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/Titel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="Titel:"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/Adresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Titel"
+        android:layout_below="@+id/Titel"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:text="Adresse"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:text="Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/Adresse"
+        android:layout_alignStart="@+id/imageView" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_mylocation"
+        android:layout_alignTop="@+id/Adresse"
+        android:layout_toEndOf="@+id/Adresse"
+        android:layout_alignBottom="@+id/Adresse" />
+
+    <EditText
+        android:id="@+id/insertOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Details"
+        android:layout_below="@+id/Details"
+        android:layout_marginTop="27dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Bauherr"
+        android:textSize="12sp"
+        android:layout_alignEnd="@+id/imageButton" />
+
+    <EditText
+        android:id="@+id/insertStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/insertOwner"
+        android:layout_below="@+id/insertOwner"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Baubeginn"
+        android:textSize="12sp"
+        android:layout_alignEnd="@+id/imageButton" />
+
+    <EditText
+        android:id="@+id/insertMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Anwesende"
+        android:textSize="12sp"
+        android:layout_below="@+id/insertStartDate"
+        android:layout_alignStart="@+id/insertStartDate"
+        android:layout_alignEnd="@+id/imageButton" />
+
+</RelativeLayout>
