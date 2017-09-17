@@ -8,21 +8,21 @@ import java.util.Locale;
 
 public class ProjectDetailedItem {
 
-    public String pic;
+    public String image;
     public String title;
     public String address;
-    public GregorianCalendar startDate;
+    public GregorianCalendar start;
 
     public String client;
     public String attendees;
     public HashMap<String, String> otherDetails;
 
 
-    public ProjectDetailedItem(String pic, String title, String address, int day, int month, int year, String client, String attendees, HashMap<String, String> otherDetails) {
-        this.pic = pic;
+    public ProjectDetailedItem(String image, String title, String address, int day, int month, int year, String client, String attendees, HashMap<String, String> otherDetails) {
+        this.image = image;
         this.title = title;
         this.address = address;
-        startDate = new GregorianCalendar(year, month, day);
+        start = new GregorianCalendar(year, month, day);
         this.client = client;
         this.attendees = attendees;
         this.otherDetails = otherDetails;
@@ -31,7 +31,7 @@ public class ProjectDetailedItem {
     public String getFormattedDate() {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,
                 Locale.GERMANY);
-        return df.format(startDate.getTime());
+        return df.format(start.getTime());
     }
 
     @Override

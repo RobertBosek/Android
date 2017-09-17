@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_weight="1"
-            android:text="@string/date_start" />
+            android:text="@string/start" />
 
     </LinearLayout>
 

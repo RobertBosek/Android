@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class ProjectListItem implements Comparable<ProjectListItem> {
 
-    public String pic;
+    public String image;
     public String title;
     public String address;
     public GregorianCalendar startDate;
@@ -15,8 +15,8 @@ public class ProjectListItem implements Comparable<ProjectListItem> {
     public boolean status;
     public int projectID;
 
-    public ProjectListItem (String pic, String title, String address, int day, int month, int year, boolean status) {
-        this.pic = pic;
+    public ProjectListItem (String image, String title, String address, int day, int month, int year, boolean status) {
+        this.image = image;
         this.title = title;
         this.address = address;
         this.startDate = new GregorianCalendar(year, month, day);
