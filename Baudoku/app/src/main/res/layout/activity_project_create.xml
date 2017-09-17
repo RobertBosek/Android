@@ -47,11 +47,13 @@
 
             <ImageView
                 android:id="@+id/add_project_img"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_add_black_24dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/default_margin"/>
+                android:background="@color/colorAccent"/>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,6 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="@integer/maxChar"
+                        android:inputType="text"
                         android:maxLines="1"
                         android:hint="@string/title"/>
                 </android.support.design.widget.TextInputLayout>
@@ -86,6 +89,8 @@
                             android:id="@+id/add_project_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:maxLines="2"
                             android:hint="@string/address"/>
                     </android.support.design.widget.TextInputLayout>
 
@@ -107,6 +112,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="@integer/dateChar"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:hint="@string/start"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -119,6 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="@integer/maxChar"
+                        android:inputType="text"
                         android:maxLines="1"
                         android:hint="@string/client"/>
                 </android.support.design.widget.TextInputLayout>
@@ -131,6 +139,8 @@
                         android:id="@+id/add_project_attendees"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
                         android:hint="@string/attendees"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>

@@ -21,6 +21,8 @@
     <string name="internet_dialog_text">Diese Funktion benötigt eine aktive Internetverbinung.</string>
     <string name="input_dialog_title">Benötigte Daten fehlen</string>
     <string name="input_dialog_text">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+    <string name="create_file_failed_toast">Bilddatei konnte nicht erstellt werden</string>
+
 
 
 
