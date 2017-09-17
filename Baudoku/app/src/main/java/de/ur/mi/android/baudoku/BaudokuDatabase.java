@@ -23,6 +23,11 @@ public class BaudokuDatabase {
         return id;
     }
 
+    public void updateProjectItem(ProjectItem projectItem) {
+        int id = projectItem.getId();
+
+    }
+
     public void removeProjectItem(int ID) {
 
     }

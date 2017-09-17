@@ -13,4 +13,15 @@
     <string name="client">Auftraggeber:</string>
     <string name="attendees">Anwesende:</string>
 
+    <string name="location_dialog_title">Standortdienst deaktiviert</string>
+    <string name="location_dialog_text">Diese Funktion benötigt Zugriff auf ihren Standort. Aktivieren Sie den Standortzugriff.</string>
+    <string name="ignore_button">Ignorieren</string>
+    <string name="settings_button">Einstellungen</string>
+    <string name="internet_dialog_title">Sie sind offline</string>
+    <string name="internet_dialog_text">Diese Funktion benötigt eine aktive Internetverbinung.</string>
+    <string name="input_dialog_title">Benötigte Daten fehlen</string>
+    <string name="input_dialog_text">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+
+
+
 </resources>
