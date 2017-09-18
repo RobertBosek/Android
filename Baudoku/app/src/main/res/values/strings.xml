@@ -2,6 +2,8 @@
     <string name="app_name">Baudoku</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
+    <string name="extra_id">projectId</string>
+
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string name="cancel">Zurück</string>
@@ -21,7 +23,11 @@
     <string name="internet_dialog_text">Diese Funktion benötigt eine aktive Internetverbinung.</string>
     <string name="input_dialog_title">Benötigte Daten fehlen</string>
     <string name="input_dialog_text">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+    <string name="no_projects_dialog_title">Benötigte Daten fehlen</string>
+    <string name="no_projects_dialog_text">Zum Erstellen eines Projekts sind Angaben zu Titel, Adresse und Datum notwendig</string>
     <string name="create_file_failed_toast">Bilddatei konnte nicht erstellt werden</string>
+    <string name="find_location_toast">Auto-Adressfindung benötigt einige Sekunden</string>
+
 
 
 

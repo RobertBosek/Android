@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -23,6 +21,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,10 +41,9 @@ import java.util.Locale;
 
 public class ProjectCreateActivity extends AppCompatActivity {
 
-    private static final int REQUEST_PERMISSION = 0;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    private static final String EXTRA_ID = "projectId";
+    private static final int REQUEST_PERMISSION_LOCATION = 0;
+    private static final int REQUEST_PERMISSION_PICTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 10;
 
     private ProjectItem editProject;
     private BaudokuDatabase db;
@@ -76,16 +74,21 @@ public class ProjectCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_create);
+        getUIElements();
+        initListeners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initDatabase();
         getExtras();
-        getUIElements();
         if (id == -1) {
             editProject = new ProjectItem(id);
         } else {
             editProject = db.getProjectItem(id);
             insertData();
         }
-        initListeners();
     }
 
     private void initDatabase() {
@@ -95,29 +98,28 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void getExtras() {
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt(EXTRA_ID);
+        id = extras.getInt(getString(R.string.extra_id));
     }
 
     private void getUIElements() {
-        editImg = (ImageView) findViewById(R.id.add_project_img);
-        editTitle = (EditText) findViewById(R.id.add_project_title);
-        editAddress = (EditText) findViewById(R.id.add_project_address);
-        editStart = (EditText) findViewById(R.id.add_project_start);
-        editClient = (EditText) findViewById(R.id.add_project_client);
-        editAttendees = (EditText) findViewById(R.id.add_project_attendees);
+        editImg = (ImageView) findViewById(R.id.project_create_activity_add_project_img);
+
+        editTitle = (EditText) findViewById(R.id.project_create_activity_add_project_title);
+        editAddress = (EditText) findViewById(R.id.project_create_activity_add_project_address);
+        editStart = (EditText) findViewById(R.id.project_create_activity_add_project_start);
+        editClient = (EditText) findViewById(R.id.project_create_activity_add_project_client);
+        editAttendees = (EditText) findViewById(R.id.project_create_activity_add_project_attendees);
 
         btnBack = (Button) findViewById(R.id.btnBack);
         btnSave = (Button) findViewById(R.id.btnSave);
-        btnGetLocation = (ImageButton) findViewById(R.id.add_current_location);
-
-        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        btnGetLocation = (ImageButton) findViewById(R.id.project_create_activity_add_current_location);
     }
 
     private void insertData() {
-        imgPath = editProject.getImg();
-        setPic();
+        imgPath = editProject.getImgPath();
+        ImageHelper.setPic(imgPath, editImg, 1080);
         editTitle.setText(editProject.getTitle(), TextView.BufferType.EDITABLE);
-        editAddress.setText(editProject.getAddress(), TextView.BufferType.EDITABLE);;
+        editAddress.setText(editProject.getAddress().replace(", ", "\n"), TextView.BufferType.EDITABLE);;
         editStart.setText(editProject.getStart(), TextView.BufferType.EDITABLE);;
         editClient.setText(editProject.getClient(), TextView.BufferType.EDITABLE);;
         editAttendees.setText(editProject.getAttendees(), TextView.BufferType.EDITABLE);;
@@ -160,6 +162,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
             }
         });
 
+        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         ll = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -211,35 +214,17 @@ public class ProjectCreateActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            setPic();
+            ImageHelper.setPic(imgPath, editImg, 1080);
+        } else {
+            Toast.makeText(this, R.string.create_file_failed_toast, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setPic() {
-        int viewSize = editImg.getWidth();
-        editImg.getLayoutParams().height = viewSize;
-
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(imgPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        int scaleFactor = Math.min(photoW/viewSize, photoH/viewSize);
-
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(imgPath, bmOptions);
-        editImg.setImageBitmap(bitmap);
-    }
-
     private void setLocationListener() {
-        checkPermissions();
+        checkPermissionsLocation();
     }
 
-    private void checkPermissions() {
+    private void checkPermissionsLocation() {
         String internetPermission = android.Manifest.permission.INTERNET;
         String connectivityPermission = android.Manifest.permission.ACCESS_NETWORK_STATE;
         String locationFinePermission = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -260,7 +245,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
         }
         int size = deniedPermissions.size();
         if (size > 0) {
-            this.requestPermissions(deniedPermissions.toArray(new String[size]), REQUEST_PERMISSION);
+            this.requestPermissions(deniedPermissions.toArray(new String[size]), REQUEST_PERMISSION_LOCATION);
         } else {
             checkAvailability();
         }
@@ -279,7 +264,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void checkAvailability() {
         if (isOnline()) {
-            connectLocationListenerToManager();
+            requestLocationUpdates();
         } else {
             makeInternetDialog();
         }
@@ -302,8 +287,9 @@ public class ProjectCreateActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void connectLocationListenerToManager() {
+    private void requestLocationUpdates() {
         try {
+            Toast.makeText(this, R.string.find_location_toast, Toast.LENGTH_SHORT).show();
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
         } catch (SecurityException e) {
 
@@ -351,15 +337,14 @@ public class ProjectCreateActivity extends AppCompatActivity {
         String client = editClient.getText().toString();
         String attendees = editAttendees.getText().toString();
 
-
         if (checkInput()) {
             if (imgPath != null) {
-                editProject.setImg(imgPath);
+                editProject.setImgPath(imgPath);
             } else {
-                editProject.setImg("");
+                editProject.setImgPath("");
             }
             editProject.setTitle(title);
-            editProject.setAddress(address);
+            editProject.setAddress(address.replace("\n", ", "));
             editProject.setStart(start);
             editProject.setClient(client);
             editProject.setAttendees(attendees);
@@ -368,9 +353,10 @@ public class ProjectCreateActivity extends AppCompatActivity {
             } else {
                 id = db.insertProjectItem(editProject);
             }
-            Intent i = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
-            i.putExtra(EXTRA_ID, id);
-            startActivity(i);
+            Intent startProjectViewActivityIntent = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
+            startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
+            startActivity(startProjectViewActivityIntent);
+            finish();
         }
     }
 
@@ -397,5 +383,10 @@ public class ProjectCreateActivity extends AppCompatActivity {
     private void showDatePickerFragment() {
         DialogFragment df = new DatePickerFragment();
         df.show(getFragmentManager(), "datePicker");
+    }
+
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 }

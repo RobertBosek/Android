@@ -2,123 +2,100 @@ package de.ur.mi.android.baudoku;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ProjectListActivity extends AppCompatActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    private ArrayList<ProjectItem> projects;
+    private static BaudokuDatabase db;
+
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private FloatingActionButton btnCreateProject;
+    private ProjectListTabAdapter tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_list);
+        getUIElements();
+        initUIElements();
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void initDatabase() {
+        db = new BaudokuDatabase(this);
+        db.open();
+    }
+
+    private void getUIElements() {
+        toolbar = (Toolbar) findViewById(R.id.project_list_activity_toolbar);
+        tabLayout = (TabLayout) findViewById(R.id.project_list_activity_tabs);
+        viewPager = (ViewPager) findViewById(R.id.project_list_activity_view_pager);
+        btnCreateProject = (FloatingActionButton) findViewById(R.id.project_list_activity_button_create_project);
+    }
+
+    private void initUIElements() {
         setSupportActionBar(toolbar);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnCreateProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ProjectListActivity.this, ProjectCreateActivity.class);
-                i.putExtra("projectId", -1);
-                i.putExtra("projectStatus", 0);
-                startActivity(i);
+                Intent startProjectCreateActivityIntent = new Intent(ProjectListActivity.this, ProjectCreateActivity.class);
+                startProjectCreateActivityIntent.putExtra(getString(R.string.extra_id), -1);
+                db.close();
+                startActivity(startProjectCreateActivityIntent);
             }
         });
-    }
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_project_list, container, false);
-
-            ListView projectsList = (ListView) rootView.findViewById(R.id.projects_list);
-
-
-            /**
-             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            */
-            return rootView;
-        }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    protected void onResume() {
+        initDatabase();
+        tabAdapter = new ProjectListTabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        super.onResume();
+    }
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
+    }
+
+
+
+    public class ProjectListTabAdapter extends FragmentPagerAdapter {
+
+        public ProjectListTabAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+        public Fragment getItem(int tab) {
+            return ProjectListTabFragment.newInstance(tab + 1);
         }
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
             return 2;
         }
 
@@ -132,5 +109,132 @@ public class ProjectListActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+
+    public static class ProjectListTabFragment extends Fragment {
+
+        private static final String PROJECT_LIST_TAB = "project_list_tab";
+
+        private ArrayList<ProjectItem> projects;
+        private ProjectListAdapter projectsAdapter;
+        private ListView projectsList;
+
+        public ProjectListTabFragment() {
+        }
+
+        public static ProjectListTabFragment newInstance(int tab) {
+            ProjectListTabFragment fragment = new ProjectListTabFragment();
+            Bundle args = new Bundle();
+            args.putInt(PROJECT_LIST_TAB, tab);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+            projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
+            setListAdapter();
+            setListeners();
+            refreshList();
+
+            return rootView;
+        }
+
+        private void setListAdapter() {
+            projects = new ArrayList<ProjectItem>();
+            projectsAdapter = new ProjectListAdapter(getContext(), projects);
+            projectsList.setAdapter(projectsAdapter);
+        }
+
+        private void setListeners() {
+            projectsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showProjectView(position);
+                }
+            });
+
+            projectsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    showOptionsMenue(position);
+                    return true;
+                }
+            });
+        }
+
+        private void showProjectView(int position) {
+            int id = projects.get(position).getId();
+            Intent startProjectViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
+            startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
+            getActivity().startActivity(startProjectViewActivityIntent);
+            db.close();
+        }
+
+        private void showOptionsMenue(int position) {
+
+        }
+
+        public void refreshList() {
+            ArrayList<ProjectItem> temp;
+            int tab = getArguments().getInt(PROJECT_LIST_TAB);
+            if (tab == 1) {
+                temp = db.getAllProjects(ProjectItem.STATUS_PENDING);
+            } else {
+                temp = db.getAllProjects(ProjectItem.STATUS_FINISHED);
+                temp.addAll(db.getAllProjects(ProjectItem.STATUS_CANCELED));
+            }
+            projects.clear();
+            projects.addAll(temp);
+            projectsAdapter.notifyDataSetChanged();
+            if (projects.size() == 0) {
+
+            }
+        }
+    }
+
+
+    private static class ProjectListAdapter extends ArrayAdapter<ProjectItem> {
+        private ArrayList<ProjectItem> projects;
+        private Context context;
+
+        public ProjectListAdapter(Context context, ArrayList<ProjectItem> projects) {
+            super(context, R.layout.item_project_list, projects);
+            this.context = context;
+            this.projects = projects;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View v = convertView;
+
+            if (v == null) {
+                LayoutInflater inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = inflater.inflate(R.layout.item_project_list, null);
+
+            }
+
+            ProjectItem project = projects.get(position);
+
+            if (project != null) {
+                ImageView img = (ImageView) v.findViewById(R.id.project_list_item_img_view);
+                TextView title = (TextView) v.findViewById(R.id.project_list_item_title_view);
+                title.setText(project.getTitle());
+                TextView address = (TextView) v.findViewById(R.id.project_list_item_address_view);
+                address.setText(project.getAddress());
+                TextView start = (TextView) v.findViewById(R.id.project_list_item_start_view);
+                start.setText(project.getStart());
+
+                ImageView status = (ImageView) v.findViewById(R.id.project_list_item_status);
+            }
+
+            return v;
+        }
+
     }
 }

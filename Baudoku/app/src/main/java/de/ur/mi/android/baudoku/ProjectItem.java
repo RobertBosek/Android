@@ -12,9 +12,7 @@ public class ProjectItem implements Comparable<ProjectItem>{
     public static final int STATUS_FINISHED = 1;
     public static final int STATUS_CANCELED = -1;
 
-
-
-    private String img;
+    private String imgPath;
     private String title;
     private String address;
     private String start;
@@ -28,8 +26,8 @@ public class ProjectItem implements Comparable<ProjectItem>{
         this.status = STATUS_PENDING;
     }
 
-    public ProjectItem(String img, String title, String address, String start, String client, String attendees, int id, int status) {
-        this.img = img;
+    public ProjectItem(String imgPath, String title, String address, String start, String client, String attendees, int id, int status) {
+        this.imgPath = imgPath;
         this.title = title;
         this.address = address;
         this.start = start;
@@ -39,8 +37,8 @@ public class ProjectItem implements Comparable<ProjectItem>{
         this.status = status;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public void setTitle(String title) {
@@ -67,8 +65,8 @@ public class ProjectItem implements Comparable<ProjectItem>{
         this.status = status;
     }
 
-    public String getImg() {
-        return this.img;
+    public String getImgPath() {
+        return this.imgPath;
     }
 
     public String getTitle() {
