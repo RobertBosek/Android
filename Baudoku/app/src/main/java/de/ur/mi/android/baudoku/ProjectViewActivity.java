@@ -97,24 +97,24 @@ public class ProjectViewActivity extends AppCompatActivity {
         btnCanceled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                makeCanceledDialog();
+                makeCancelDialog();
             }
         });
         btnDeleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                makeDeletedDialog();
+                makeDeleteDialog();
             }
         });
         btnFinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                makeFinishedDialog();
+                makeFinishDialog();
             }
         });
     }
 
-    private void makeCanceledDialog() {
+    private void makeCancelDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_title_cancel_project)
                 .setMessage(R.string.dialog_text_cancel_project)
@@ -134,7 +134,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void makeDeletedDialog() {
+    private void makeDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_title_delete_project)
                 .setMessage(R.string.dialog_text_delete_project)
@@ -153,7 +153,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void makeFinishedDialog() {
+    private void makeFinishDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_title_finish_project)
                 .setMessage(R.string.dialog_text_finish_project)

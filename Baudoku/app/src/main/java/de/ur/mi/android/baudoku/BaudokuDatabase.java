@@ -73,7 +73,7 @@ public class BaudokuDatabase {
         ProjectItem project = null;
         Cursor cursor = db.query(DATABASE_TABLE_PROJECTS, ALL_COLUMS_PROJECTS, KEY_ID + "=?", new String[] {String.valueOf(id)}, null, null, null);
         if (cursor.moveToFirst()) {
-            project = getItemFromCursor(cursor);
+            project = getProjectItemFromCursor(cursor);
         }
         return project;
     }
@@ -83,7 +83,7 @@ public class BaudokuDatabase {
         Cursor cursor = db.query(DATABASE_TABLE_PROJECTS, ALL_COLUMS_PROJECTS, KEY_STATUS + "=?", new String[] {String.valueOf(status)}, null, null, null);
         if (cursor.moveToFirst()) {
             do {
-                ProjectItem project = getItemFromCursor(cursor);
+                ProjectItem project = getProjectItemFromCursor(cursor);
                 projects.add(project);
             } while (cursor.moveToNext());
         }
@@ -102,7 +102,7 @@ public class BaudokuDatabase {
         db.update(DATABASE_TABLE_PROJECTS, projectValues, KEY_ID + "=?", new String[] {String.valueOf(project.getId())});
     }
 
-    public ProjectItem getItemFromCursor(Cursor cursor) {
+    public ProjectItem getProjectItemFromCursor(Cursor cursor) {
         String imgPath = cursor.getString(cursor.getColumnIndex(KEY_IMG_PATH));
         String title = cursor.getString(cursor.getColumnIndex(KEY_TITLE));
         String address = cursor.getString(cursor.getColumnIndex(KEY_ADDRESS));
