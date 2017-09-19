@@ -124,7 +124,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                         db.open();
                         db.updateProjectItem(project);
                         db.close();
-                        Toast.makeText(context, R.string.toast_on_delete_project, Toast.LENGTH_SHORT).show();
+                        startListActivity();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -143,7 +143,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                         db.open();
                         db.removeProjectItem(project.getId());
                         db.close();
-                        Toast.makeText(context, R.string.toast_on_delete_project, Toast.LENGTH_SHORT).show();
+                        startListActivity();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -163,6 +163,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                         db.open();
                         db.updateProjectItem(project);
                         db.close();
+                        startListActivity();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -170,6 +171,11 @@ public class ProjectViewActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private void startListActivity() {
+        Intent startProjectListActivityIntent = new Intent(ProjectViewActivity.this, ProjectListActivity.class);
+        startActivity(startProjectListActivityIntent);
     }
 
     @Override

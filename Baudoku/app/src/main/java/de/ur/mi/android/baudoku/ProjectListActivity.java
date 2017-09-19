@@ -129,6 +129,9 @@ public class ProjectListActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
             projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
+            TextView tv = (TextView) rootView.findViewById(R.id.fragment_list_empty);
+            tv.setText(R.string.text_no_existing_projects);
+            projectsList.setEmptyView(tv);
             setListAdapter();
             setListeners();
             refreshList();
@@ -140,6 +143,9 @@ public class ProjectListActivity extends AppCompatActivity {
             projects = new ArrayList<ProjectItem>();
             projectsAdapter = new ProjectListAdapter(getContext(), projects);
             projectsList.setAdapter(projectsAdapter);
+
+
+
         }
 
         private void setListeners() {

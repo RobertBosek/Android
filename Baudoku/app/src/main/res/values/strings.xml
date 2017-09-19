@@ -20,6 +20,9 @@
     <string name="label_client">Auftraggeber:</string>
     <string name="label_attendees">Anwesende:</string>
 
+    <string name="text_no_existing_notes">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
+    <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
+
     <string name="dialog_title_get_location">Standortdienst deaktiviert</string>
     <string name="dialog_text_get_location">Diese Funktion benötigt Zugriff auf ihren Standort. Aktivieren Sie den Standortzugriff.</string>
 
@@ -28,10 +31,6 @@
 
     <string name="dialog_title_missing_input">Benötigte Daten fehlen</string>
     <string name="dialog_text_missing_input">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
-
-    <string name="dialog_title_no_existing_projects">Keine Projekte vorhanen</string>
-    <string name="dialog_text_no_existin_projects">Zum Erstellen eines neuen Projekts den + Button drücken</string>
-
 
     <string name="dialog_title_cancel_project">Projektabbruch</string>
     <string name="dialog_text_cancel_project">Soll das Projekt abgebrochen werden?</string>
