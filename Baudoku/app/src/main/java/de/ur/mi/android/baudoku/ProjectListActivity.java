@@ -108,6 +108,7 @@ public class ProjectListActivity extends AppCompatActivity {
 
         private static final String PROJECT_LIST_TAB = "project_list_tab";
 
+
         private ArrayList<ProjectItem> projects;
         private ProjectListAdapter projectsAdapter;
         private ListView projectsList;
@@ -219,7 +220,7 @@ public class ProjectListActivity extends AppCompatActivity {
                 TextView title = (TextView) v.findViewById(R.id.project_list_item_title_view);
                 title.setText(project.getTitle());
                 TextView address = (TextView) v.findViewById(R.id.project_list_item_address_view);
-                address.setText(project.getAddress());
+                address.setText(project.getAddress().replace("\n", ", "));
                 TextView start = (TextView) v.findViewById(R.id.project_list_item_start_view);
                 start.setText(project.getStart());
 

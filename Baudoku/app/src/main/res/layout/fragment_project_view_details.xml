@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,13 +22,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/address"/>
+                android:text="@string/label_address"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/project_address"/>
+                android:layout_weight="2"
+                android:id="@+id/project_view_detail_address"/>
 
         </LinearLayout>
 
@@ -37,13 +40,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/start"/>
+                android:text="@string/label_start"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/project_start"/>
+                android:layout_weight="2"
+                android:id="@+id/project_view_detail_start"/>
 
         </LinearLayout>
 
@@ -55,13 +58,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/client"/>
+                android:text="@string/label_client"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/project_client"/>
+                android:layout_weight="2"
+                android:id="@+id/project_view_detail_client"/>
 
         </LinearLayout>
 
@@ -73,14 +76,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/attendees"/>
+                android:text="@string/label_attendees"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/add_project_attendees"/>
-
+                android:layout_weight="2"
+                android:id="@+id/project_view_detail_attendees"/>
         </LinearLayout>
 
     </LinearLayout>

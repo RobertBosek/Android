@@ -102,8 +102,4 @@ public class ProjectItem implements Comparable<ProjectItem>{
         return this.start.compareTo(another.start);
     }
 
-    @Override
-    public String toString() {
-        return "Title: " + this.title + ", Date: " + this.start;
-    }
 }

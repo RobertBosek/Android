@@ -6,27 +6,46 @@
 
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <string name="cancel">Zurück</string>
-    <string name="save">Speichern</string>
+    <string name="button_back">Zurück</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_cancel">Abbruch</string>
+    <string name="button_delete">Löschen</string>
+    <string name="button_finish">Fertig</string>
+    <string name="button_ignore">Ignorieren</string>
+    <string name="button_settings">Einstellungen</string>
 
-    <string name="address">Adresse:</string>
-    <string name="title">Titel:</string>
-    <string name="start">Projektbeginn:</string>
-    <string name="client">Auftraggeber:</string>
-    <string name="attendees">Anwesende:</string>
+    <string name="label_address">Adresse:</string>
+    <string name="label_title">Titel:</string>
+    <string name="label_start">Projektbeginn:</string>
+    <string name="label_client">Auftraggeber:</string>
+    <string name="label_attendees">Anwesende:</string>
 
-    <string name="location_dialog_title">Standortdienst deaktiviert</string>
-    <string name="location_dialog_text">Diese Funktion benötigt Zugriff auf ihren Standort. Aktivieren Sie den Standortzugriff.</string>
-    <string name="ignore_button">Ignorieren</string>
-    <string name="settings_button">Einstellungen</string>
-    <string name="internet_dialog_title">Sie sind offline</string>
-    <string name="internet_dialog_text">Diese Funktion benötigt eine aktive Internetverbinung.</string>
-    <string name="input_dialog_title">Benötigte Daten fehlen</string>
-    <string name="input_dialog_text">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
-    <string name="no_projects_dialog_title">Benötigte Daten fehlen</string>
-    <string name="no_projects_dialog_text">Zum Erstellen eines Projekts sind Angaben zu Titel, Adresse und Datum notwendig</string>
-    <string name="create_file_failed_toast">Bilddatei konnte nicht erstellt werden</string>
-    <string name="find_location_toast">Auto-Adressfindung benötigt einige Sekunden</string>
+    <string name="dialog_title_get_location">Standortdienst deaktiviert</string>
+    <string name="dialog_text_get_location">Diese Funktion benötigt Zugriff auf ihren Standort. Aktivieren Sie den Standortzugriff.</string>
+
+    <string name="dialog_title_missing_internet">Sie sind offline</string>
+    <string name="dialog_text_missing_internet">Diese Funktion benötigt eine aktive Internetverbinung.</string>
+
+    <string name="dialog_title_missing_input">Benötigte Daten fehlen</string>
+    <string name="dialog_text_missing_input">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+
+    <string name="dialog_title_no_existing_projects">Keine Projekte vorhanen</string>
+    <string name="dialog_text_no_existin_projects">Zum Erstellen eines neuen Projekts den + Button drücken</string>
+
+
+    <string name="dialog_title_cancel_project">Projektabbruch</string>
+    <string name="dialog_text_cancel_project">Soll das Projekt abgebrochen werden?</string>
+
+    <string name="dialog_title_delete_project">Projekt löschen</string>
+    <string name="dialog_text_delete_project">Das Projekt wird unwiderruflich gelöscht!</string>
+
+    <string name="dialog_title_finish_project">Projektfertigstellung</string>
+    <string name="dialog_text_finish_project">Wurde das Projekt fertiggestellt?</string>
+
+
+    <string name="toast_on_failed_filecreation">Es konnte keine neue Datei erstellt werden.</string>
+    <string name="toast_on_get_location">Auto-Adressfindung benötigt einige Sekunden</string>
+    <string name="toast_on_delete_project">Projekt wurde gelöscht</string>
 
 
 

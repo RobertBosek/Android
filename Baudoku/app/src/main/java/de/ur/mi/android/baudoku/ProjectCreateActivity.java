@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,9 +75,11 @@ public class ProjectCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_create);
-        super.onResume();
+        getUIElements();
+        initListeners();
         initDatabase();
         getExtras();
+
         if (id == -1) {
             editProject = new ProjectItem(id);
         } else {
@@ -85,8 +88,6 @@ public class ProjectCreateActivity extends AppCompatActivity {
             db.close();
             insertData();
         }
-        getUIElements();
-        initListeners();
     }
 
     private void initDatabase() {
@@ -116,10 +117,10 @@ public class ProjectCreateActivity extends AppCompatActivity {
         imgPath = editProject.getImgPath();
         ImageHelper.setPic(imgPath, editImg);
         editTitle.setText(editProject.getTitle(), TextView.BufferType.EDITABLE);
-        editAddress.setText(editProject.getAddress().replace(", ", "\n"), TextView.BufferType.EDITABLE);;
+        editAddress.setText(editProject.getAddress(), TextView.BufferType.EDITABLE);;
         editStart.setText(editProject.getStart(), TextView.BufferType.EDITABLE);;
         editClient.setText(editProject.getClient(), TextView.BufferType.EDITABLE);;
-        editAttendees.setText(editProject.getAttendees(), TextView.BufferType.EDITABLE);;
+        editAttendees.setText(editProject.getAttendees(), TextView.BufferType.EDITABLE);
     }
 
     private void initListeners() {
@@ -155,7 +156,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
         btnGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocationListener();
+                checkPermissionsLocation();
             }
         });
 
@@ -187,11 +188,13 @@ public class ProjectCreateActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
+                Log.d("img", "abdd1");
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Toast.makeText(this, R.string.create_file_failed_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_on_failed_filecreation, Toast.LENGTH_SHORT).show();
             }
             if (photoFile != null) {
+                Log.d("img", "abdd1");
                 Uri photoURI = FileProvider.getUriForFile(this, "de.ur.mi.android.baudoku.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -213,12 +216,8 @@ public class ProjectCreateActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             ImageHelper.setPic(imgPath, editImg);
         } else {
-            Toast.makeText(this, R.string.create_file_failed_toast, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_on_failed_filecreation, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void setLocationListener() {
-        checkPermissionsLocation();
     }
 
     private void checkPermissionsLocation() {
@@ -275,8 +274,8 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void makeInternetDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.internet_dialog_title)
-                .setMessage(R.string.internet_dialog_text)
+        builder.setTitle(R.string.dialog_title_missing_internet)
+                .setMessage(R.string.dialog_text_missing_internet)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -286,7 +285,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void requestLocationUpdates() {
         try {
-            Toast.makeText(this, R.string.find_location_toast, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_on_get_location, Toast.LENGTH_SHORT).show();
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
         } catch (SecurityException e) {
 
@@ -295,15 +294,15 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void makeLocationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.location_dialog_title)
-                .setMessage(R.string.location_dialog_text)
-                .setPositiveButton(R.string.settings_button, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_title_get_location)
+                .setMessage(R.string.dialog_text_get_location)
+                .setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(i);
                     }
                 })
-                .setNegativeButton(R.string.ignore_button, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.button_ignore, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
@@ -341,7 +340,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
                 editProject.setImgPath("");
             }
             editProject.setTitle(title);
-            editProject.setAddress(address.replace("\n", ", "));
+            editProject.setAddress(address);
             editProject.setStart(start);
             editProject.setClient(client);
             editProject.setAttendees(attendees);
@@ -370,8 +369,8 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void makeNecessaryInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.input_dialog_title)
-                .setMessage(R.string.input_dialog_text)
+        builder.setTitle(R.string.dialog_title_missing_input)
+                .setMessage(R.string.dialog_text_missing_input)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }

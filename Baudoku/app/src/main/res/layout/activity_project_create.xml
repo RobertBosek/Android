@@ -14,6 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         tools:background="@color/colorPrimary">
 
         <Button
@@ -23,7 +24,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"
-            android:text="@string/cancel"/>
+            android:text="@string/button_back"/>
 
         <Button
             android:id="@+id/btnSave"
@@ -32,7 +33,7 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"
-            android:text="@string/save"/>
+            android:text="@string/button_save"/>
     </LinearLayout>
 
     <ScrollView
@@ -71,7 +72,7 @@
                         android:maxLength="@integer/maxChar"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:hint="@string/title"/>
+                        android:hint="@string/label_title"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <RelativeLayout
@@ -88,7 +89,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="textMultiLine"
                             android:maxLines="2"
-                            android:hint="@string/address"/>
+                            android:hint="@string/label_address"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <ImageButton
@@ -111,7 +112,7 @@
                         android:maxLength="@integer/dateChar"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:hint="@string/start"/>
+                        android:hint="@string/label_start"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -125,7 +126,7 @@
                         android:maxLength="@integer/maxChar"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:hint="@string/client"/>
+                        android:hint="@string/label_client"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -138,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
                         android:maxLines="5"
-                        android:hint="@string/attendees"/>
+                        android:hint="@string/label_attendees"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
