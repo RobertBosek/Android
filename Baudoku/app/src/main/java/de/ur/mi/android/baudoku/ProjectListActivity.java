@@ -41,7 +41,6 @@ public class ProjectListActivity extends AppCompatActivity {
 
     private void initDatabase() {
         db = new BaudokuDatabase(this);
-        db.open();
     }
 
     private void getUIElements() {
@@ -74,13 +73,6 @@ public class ProjectListActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         super.onResume();
     }
-
-    @Override
-    protected void onDestroy() {
-        db.close();
-        super.onDestroy();
-    }
-
 
 
     public class ProjectListTabAdapter extends FragmentPagerAdapter {
@@ -171,7 +163,6 @@ public class ProjectListActivity extends AppCompatActivity {
             Intent startProjectViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
             startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
             getActivity().startActivity(startProjectViewActivityIntent);
-            db.close();
         }
 
         private void showOptionsMenue(int position) {
@@ -181,12 +172,14 @@ public class ProjectListActivity extends AppCompatActivity {
         public void refreshList() {
             ArrayList<ProjectItem> temp;
             int tab = getArguments().getInt(PROJECT_LIST_TAB);
+            db.open();
             if (tab == 1) {
                 temp = db.getAllProjects(ProjectItem.STATUS_PENDING);
             } else {
                 temp = db.getAllProjects(ProjectItem.STATUS_FINISHED);
                 temp.addAll(db.getAllProjects(ProjectItem.STATUS_CANCELED));
             }
+            db.close();
             projects.clear();
             projects.addAll(temp);
             projectsAdapter.notifyDataSetChanged();

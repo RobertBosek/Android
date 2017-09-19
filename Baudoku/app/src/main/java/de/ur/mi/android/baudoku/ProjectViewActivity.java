@@ -42,13 +42,14 @@ public class ProjectViewActivity extends AppCompatActivity {
 
     private void initDatabase() {
         db = new BaudokuDatabase(this);
-        db.open();
     }
 
     public void getDisplayProject() {
         Bundle extras = getIntent().getExtras();
         int id = extras.getInt(getString(R.string.extra_id));
+        db.open();
         project = db.getProjectItem(id);
+        db.close();
     }
 
     public void getUIElements() {
@@ -79,7 +80,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         if (id == R.id.project_view_menu_edit_project) {
             Intent startProjectCreateActivityIntent = new Intent(ProjectViewActivity.this, ProjectCreateActivity.class);
             startProjectCreateActivityIntent.putExtra(getString(R.string.extra_id), project.getId());
-            db.close();
             startActivity(startProjectCreateActivityIntent);
         }
         return super.onOptionsItemSelected(item);

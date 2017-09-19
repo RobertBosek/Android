@@ -74,26 +74,23 @@ public class ProjectCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_create);
-        getUIElements();
-        initListeners();
-    }
-
-    @Override
-    protected void onResume() {
         super.onResume();
         initDatabase();
         getExtras();
         if (id == -1) {
             editProject = new ProjectItem(id);
         } else {
+            db.open();
             editProject = db.getProjectItem(id);
+            db.close();
             insertData();
         }
+        getUIElements();
+        initListeners();
     }
 
     private void initDatabase() {
         db = new BaudokuDatabase(this);
-        db.open();
     }
 
     private void getExtras() {
@@ -117,7 +114,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void insertData() {
         imgPath = editProject.getImgPath();
-        ImageHelper.setPic(imgPath, editImg, 1080);
+        ImageHelper.setPic(imgPath, editImg);
         editTitle.setText(editProject.getTitle(), TextView.BufferType.EDITABLE);
         editAddress.setText(editProject.getAddress().replace(", ", "\n"), TextView.BufferType.EDITABLE);;
         editStart.setText(editProject.getStart(), TextView.BufferType.EDITABLE);;
@@ -214,7 +211,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            ImageHelper.setPic(imgPath, editImg, 1080);
+            ImageHelper.setPic(imgPath, editImg);
         } else {
             Toast.makeText(this, R.string.create_file_failed_toast, Toast.LENGTH_SHORT).show();
         }
@@ -348,11 +345,13 @@ public class ProjectCreateActivity extends AppCompatActivity {
             editProject.setStart(start);
             editProject.setClient(client);
             editProject.setAttendees(attendees);
+            db.open();
             if (id != -1) {
                 db.updateProjectItem(editProject);
             } else {
                 id = db.insertProjectItem(editProject);
             }
+            db.close();
             Intent startProjectViewActivityIntent = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
             startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
             startActivity(startProjectViewActivityIntent);
@@ -383,10 +382,5 @@ public class ProjectCreateActivity extends AppCompatActivity {
     private void showDatePickerFragment() {
         DialogFragment df = new DatePickerFragment();
         df.show(getFragmentManager(), "datePicker");
-    }
-
-    protected void onDestroy() {
-        db.close();
-        super.onDestroy();
     }
 }
