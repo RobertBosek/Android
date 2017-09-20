@@ -14,14 +14,24 @@
     <string name="button_ignore">Ignorieren</string>
     <string name="button_settings">Einstellungen</string>
 
+    <string name="description_button_find_location">autofind location</string>
+
     <string name="label_address">Adresse:</string>
     <string name="label_title">Titel:</string>
     <string name="label_start">Projektbeginn:</string>
     <string name="label_client">Auftraggeber:</string>
     <string name="label_attendees">Anwesende:</string>
 
+    <string name="label_date">Datum</string>
+    <string name="label_weather">Wetter:</string>
+
+    <string name="section_title_image">Aufnahme</string>
+    <string name="section_title_note_memo">Notiz/Sprachmemo</string>
+
     <string name="text_no_existing_notes">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
     <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
+    <string name="text_create_new_note">Zum Erstellen einer neuen Notiz, hier klicken</string>
+
 
     <string name="dialog_title_get_location">Standortdienst deaktiviert</string>
     <string name="dialog_text_get_location">Diese Funktion benötigt Zugriff auf ihren Standort. Aktivieren Sie den Standortzugriff.</string>

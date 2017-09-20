@@ -252,13 +252,26 @@ public class ProjectViewActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             int tab = getArguments().getInt(PROJECT_VIEW_TAB);
             if (tab == 2) {
-                rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+                rootView = inflater.inflate(R.layout.fragment_project_view_notes, container, false);
+                showNoteFragment();
             } else {
                 rootView = inflater.inflate(R.layout.fragment_project_view_details, container, false);
                 initFragmentUIElements();
                 setDetails();
             }
             return rootView;
+        }
+
+        private void showNoteFragment() {
+            TextView getOn = (TextView) rootView.findViewById(R.id.fragment_project_view_notes);
+            getOn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
+                    startNoteCreateActivityIntent.putExtra(getString(R.string.extra_id), -1);
+                    startActivity(startNoteCreateActivityIntent);
+                }
+            });
         }
 
         private void initFragmentUIElements() {

@@ -127,7 +127,7 @@ public class ProjectListActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_project_list_listview, container, false);
             projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
             TextView tv = (TextView) rootView.findViewById(R.id.fragment_list_empty);
             tv.setText(R.string.text_no_existing_projects);
