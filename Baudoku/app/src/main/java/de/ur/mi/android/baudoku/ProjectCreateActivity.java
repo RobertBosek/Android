@@ -96,7 +96,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void getExtras() {
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt(getString(R.string.extra_id));
+        id = extras.getInt(getString(R.string.intent_extra_key_project_id));
     }
 
     private void getUIElements() {
@@ -352,7 +352,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
             }
             db.close();
             Intent startProjectViewActivityIntent = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
-            startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
+            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), id);
             startActivity(startProjectViewActivityIntent);
             finish();
         }

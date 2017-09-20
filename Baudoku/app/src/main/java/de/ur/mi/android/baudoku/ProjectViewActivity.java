@@ -20,19 +20,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProjectViewActivity extends AppCompatActivity {
 
     private static ProjectItem project;
-    private BaudokuDatabase db;
+    private static BaudokuDatabase db;
 
     private Toolbar toolbar;
     private ImageView imgView;
@@ -64,7 +67,7 @@ public class ProjectViewActivity extends AppCompatActivity {
 
     public void getDisplayProject() {
         Bundle extras = getIntent().getExtras();
-        int id = extras.getInt(getString(R.string.extra_id));
+        int id = extras.getInt(getString(R.string.intent_extra_key_project_id));
         db.open();
         project = db.getProjectItem(id);
         db.close();
@@ -176,6 +179,7 @@ public class ProjectViewActivity extends AppCompatActivity {
     private void startListActivity() {
         Intent startProjectListActivityIntent = new Intent(ProjectViewActivity.this, ProjectListActivity.class);
         startActivity(startProjectListActivityIntent);
+        finish();
     }
 
     @Override
@@ -189,7 +193,7 @@ public class ProjectViewActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.project_view_menu_edit_project) {
             Intent startProjectCreateActivityIntent = new Intent(ProjectViewActivity.this, ProjectCreateActivity.class);
-            startProjectCreateActivityIntent.putExtra(getString(R.string.extra_id), project.getId());
+            startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
             startActivity(startProjectCreateActivityIntent);
         }
         return super.onOptionsItemSelected(item);
@@ -230,12 +234,17 @@ public class ProjectViewActivity extends AppCompatActivity {
         private static final String PROJECT_VIEW_TAB = "project_view_tab";
 
         private View rootView;
+
         private TextView addressView;
         private TextView startView;
         private TextView clientView;
         private TextView attendeesView;
 
-
+        private TextView addNote;
+        private ListView notesList;
+        private TextView emptyListText;
+        private ArrayList<NoteItem> notes;
+        private ProjectViewActivity.NoteListAdapter notesAdapter;
 
         public ProjectViewTabFragment() {
         }
@@ -253,28 +262,91 @@ public class ProjectViewActivity extends AppCompatActivity {
             int tab = getArguments().getInt(PROJECT_VIEW_TAB);
             if (tab == 2) {
                 rootView = inflater.inflate(R.layout.fragment_project_view_notes, container, false);
-                showNoteFragment();
+                initNotesFragment();
             } else {
                 rootView = inflater.inflate(R.layout.fragment_project_view_details, container, false);
-                initFragmentUIElements();
-                setDetails();
+                initDetailsFragment();
             }
             return rootView;
         }
 
-        private void showNoteFragment() {
-            TextView getOn = (TextView) rootView.findViewById(R.id.fragment_project_view_notes);
-            getOn.setOnClickListener(new View.OnClickListener() {
+        private void initNotesFragment() {
+            getNotesFragmentUIElements();
+            setListAdapter();
+            setListeners();
+            refreshList();
+        }
+
+        public void getNotesFragmentUIElements() {
+            addNote = (TextView) rootView.findViewById(R.id.fragment_project_view_notes);
+            notesList = (ListView) rootView.findViewById(R.id.fragment_list_view);
+            emptyListText = (TextView) rootView.findViewById(R.id.fragment_list_empty);
+            emptyListText.setText(R.string.text_no_existing_notes);
+        }
+
+        private void setListAdapter() {
+            notes = new ArrayList<NoteItem>();
+            notesAdapter = new ProjectViewActivity.NoteListAdapter(getContext(), notes);
+            notesList.setAdapter(notesAdapter);
+            notesList.setEmptyView(emptyListText);
+        }
+
+        private void setListeners() {
+            notesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    showNoteView(position);
+                }
+            });
+
+            notesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    showContextMenu(position);
+                    return true;
+                }
+            });
+
+            addNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
-                    startNoteCreateActivityIntent.putExtra(getString(R.string.extra_id), -1);
+                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
+                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_note_id), -1);
                     startActivity(startNoteCreateActivityIntent);
                 }
             });
         }
 
-        private void initFragmentUIElements() {
+        private void showNoteView(int position) {
+            int id = notes.get(position).getId();
+            Intent startNoteViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
+            startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
+            startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_note_id), id);
+            getActivity().startActivity(startNoteViewActivityIntent);
+        }
+
+        private void showContextMenu(int position) {
+
+        }
+
+        public void refreshList() {
+            ArrayList<NoteItem> temp;
+            db.open();
+            temp = db.getAllNotes(project.getId());
+            db.close();
+            notes.clear();
+            notes.addAll(temp);
+            notesAdapter.notifyDataSetChanged();
+        }
+
+
+        private void initDetailsFragment() {
+            getDetailsFragmentUIElements();
+            setDetails();
+        }
+
+        private void getDetailsFragmentUIElements() {
             addressView = (TextView) rootView.findViewById(R.id.project_view_detail_address);
             startView = (TextView) rootView.findViewById(R.id.project_view_detail_start);
             clientView = (TextView) rootView.findViewById(R.id.project_view_detail_client);
@@ -287,5 +359,41 @@ public class ProjectViewActivity extends AppCompatActivity {
             clientView.setText(project.getClient());
             attendeesView.setText(project.getAttendees());
         }
+    }
+
+    private static class NoteListAdapter extends ArrayAdapter<NoteItem> {
+        private ArrayList<NoteItem> notes;
+        private Context context;
+
+        public NoteListAdapter(Context context, ArrayList<NoteItem> notes) {
+            super(context, R.layout.item_note_list, notes);
+            this.context = context;
+            this.notes = notes;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View v = convertView;
+
+            if (v == null) {
+                LayoutInflater inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = inflater.inflate(R.layout.item_project_list, null);
+
+            }
+
+            NoteItem note = notes.get(position);
+
+            if (project != null) {
+                ImageView img = (ImageView) v.findViewById(R.id.project_view_note_item_img_view);
+                TextView date = (TextView) v.findViewById(R.id.project_view_note_item_date_view);
+                date.setText(note.getDate());
+                ImageView weather = (ImageView) v.findViewById(R.id.project_view_note_item_weather);
+            }
+
+            return v;
+        }
+
     }
 }

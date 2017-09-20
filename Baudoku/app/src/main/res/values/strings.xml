@@ -2,7 +2,8 @@
     <string name="app_name">Baudoku</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
-    <string name="extra_id">projectId</string>
+    <string name="intent_extra_key_project_id">projectId</string>
+    <string name="intent_extra_key_note_id">projectId</string>
 
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -28,8 +29,8 @@
     <string name="section_title_image">Aufnahme</string>
     <string name="section_title_note_memo">Notiz/Sprachmemo</string>
 
-    <string name="text_no_existing_notes">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
     <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
+    <string name="text_no_existing_notes">Keine Notizen vorhanden.</string>
     <string name="text_create_new_note">Zum Erstellen einer neuen Notiz, hier klicken</string>
 
 

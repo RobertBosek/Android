@@ -115,6 +115,13 @@ public class BaudokuDatabase {
     }
 
 
+    public ArrayList<NoteItem> getAllNotes(int projectID) {
+        ArrayList<NoteItem> notes = new ArrayList<NoteItem>();
+
+        return notes;
+    }
+
+
     private class BaudokuDBOpenHelper extends SQLiteOpenHelper {
         private static final String DATABASE_CREATE_TABLE_PROJECTS = "create table "
                 + DATABASE_TABLE_PROJECTS + " (" + KEY_ID + " integer primary key autoincrement, "

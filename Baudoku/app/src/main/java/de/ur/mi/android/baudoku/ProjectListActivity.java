@@ -57,7 +57,7 @@ public class ProjectListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startProjectCreateActivityIntent = new Intent(ProjectListActivity.this, ProjectCreateActivity.class);
-                startProjectCreateActivityIntent.putExtra(getString(R.string.extra_id), -1);
+                startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), -1);
                 db.close();
                 startActivity(startProjectCreateActivityIntent);
             }
@@ -108,10 +108,11 @@ public class ProjectListActivity extends AppCompatActivity {
 
         private static final String PROJECT_LIST_TAB = "project_list_tab";
 
-
+        private View rootView;
         private ArrayList<ProjectItem> projects;
         private ProjectListAdapter projectsAdapter;
         private ListView projectsList;
+        private TextView emptyListText;
 
         public ProjectListTabFragment() {
         }
@@ -127,11 +128,8 @@ public class ProjectListActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_project_list_listview, container, false);
-            projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
-            TextView tv = (TextView) rootView.findViewById(R.id.fragment_list_empty);
-            tv.setText(R.string.text_no_existing_projects);
-            projectsList.setEmptyView(tv);
+            rootView = inflater.inflate(R.layout.fragment_project_list_listview, container, false);
+            getFragmentUIElements();
             setListAdapter();
             setListeners();
             refreshList();
@@ -139,13 +137,17 @@ public class ProjectListActivity extends AppCompatActivity {
             return rootView;
         }
 
+        public void getFragmentUIElements() {
+            projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
+            emptyListText = (TextView) rootView.findViewById(R.id.fragment_list_empty);
+            emptyListText.setText(R.string.text_no_existing_projects);
+        }
+
         private void setListAdapter() {
             projects = new ArrayList<ProjectItem>();
             projectsAdapter = new ProjectListAdapter(getContext(), projects);
             projectsList.setAdapter(projectsAdapter);
-
-
-
+            projectsList.setEmptyView(emptyListText);
         }
 
         private void setListeners() {
@@ -159,7 +161,7 @@ public class ProjectListActivity extends AppCompatActivity {
             projectsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    showOptionsMenue(position);
+                    showContextMenue(position);
                     return true;
                 }
             });
@@ -168,11 +170,11 @@ public class ProjectListActivity extends AppCompatActivity {
         private void showProjectView(int position) {
             int id = projects.get(position).getId();
             Intent startProjectViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
-            startProjectViewActivityIntent.putExtra(getString(R.string.extra_id), id);
+            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), id);
             getActivity().startActivity(startProjectViewActivityIntent);
         }
 
-        private void showOptionsMenue(int position) {
+        private void showContextMenue(int position) {
 
         }
 
@@ -190,9 +192,6 @@ public class ProjectListActivity extends AppCompatActivity {
             projects.clear();
             projects.addAll(temp);
             projectsAdapter.notifyDataSetChanged();
-            if (projects.size() == 0) {
-
-            }
         }
     }
 
