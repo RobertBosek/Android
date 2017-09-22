@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="maxChar">30</integer>
-    <integer name="dateChar">8</integer>
-</resources>
