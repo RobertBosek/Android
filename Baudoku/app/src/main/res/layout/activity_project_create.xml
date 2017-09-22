@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:minHeight="100dp"
-                android:src="@drawable/ic_add_black_24dp" />
+                android:src="@drawable/add_photo" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/description_button_find_location"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_my_location_black_24dp" />
+                    android:src="@drawable/address_gps_01" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

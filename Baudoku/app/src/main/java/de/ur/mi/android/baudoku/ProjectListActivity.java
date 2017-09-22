@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class ProjectListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private FloatingActionButton btnCreateProject;
+    private ImageButton btnCreateProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class ProjectListActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.project_list_activity_toolbar);
         tabLayout = (TabLayout) findViewById(R.id.project_list_activity_tabs);
         viewPager = (ViewPager) findViewById(R.id.project_list_activity_view_pager);
-        btnCreateProject = (FloatingActionButton) findViewById(R.id.project_list_activity_button_create_project);
+        btnCreateProject = (ImageButton) findViewById(R.id.project_list_activity_button_create_project);
     }
 
     private void initUIElements() {

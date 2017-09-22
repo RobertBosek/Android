@@ -64,34 +64,32 @@
         android:layout_gravity="bottom"
         tools:background="@color/colorPrimary">
 
-        <Button
+        <ImageButton
             android:id="@+id/project_view_activity_btnCanceled"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"
-            android:text="@string/button_cancel"/>
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/cancel_02"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/project_view_activity_btnDeleted"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"
-            android:text="@string/button_delete"/>
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/delete_01"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/project_view_activity_btnFinished"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorAccent"
-            android:text="@string/button_finish"/>
-
-
+            android:layout_marginRight="2dp"
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/ok_03"/>
 
     </LinearLayout>
 

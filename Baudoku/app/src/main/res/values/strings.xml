@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Baudoku</string>
+    <string name="label_start_activity_baudoku">BAUDOKU</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
     <string name="intent_extra_key_project_id">projectId</string>
@@ -33,7 +34,7 @@
     <string name="section_title_note_memo">Notiz/Sprachmemo</string>
 
 
-    <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
+    <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts „+“ drücken</string>
     <string name="text_no_existing_notes">Keine Notizen vorhanden.</string>
     <string name="text_create_new_note">Zum Erstellen einer neuen Notiz, hier klicken</string>
 
@@ -61,8 +62,17 @@
     <string name="toast_on_get_location">Auto-Adressfindung benötigt einige Sekunden</string>
     <string name="toast_on_delete_project">Projekt wurde gelöscht</string>
 
-
-
-
+    <string name="info_text_heading">INFO</string>
+    <string name="info_text_intro">Herzlich Willkommen in der Applikation „Baudoku“!\nMithilfe dieses Programmes für Ihr Smartphone können Sie jederzeit von überall aus Ihre Bauprojekte ausführlichst dokumentieren ohne eine Kamera, einen Notizblock oder ein Diktiergerät einzeln mitzunehmen. Diese App führt alle wichtigen Dokumentionsarten zusammen und verschafft dem Nutzer einen perfekten Überblick über alle laufenden, abgeschlossenen oder sogar abgebrochenen Projekte. Im Folgenden finden Sie noch ein paar Hilfestellungen in Form einer Kurzanleitung zur Bedienung der App:</string>
+    <string name="info_text_01"><b>1.</b> Nach Öffnen der Applikation „Baudoku“ sehen Sie die vier Auswahlmöglichkeiten (Projekte, Projekt anlegen, Info, Einstellungen).</string>
+    <string name="info_text_02"><b>2.</b> Unter „Projekte“ finden Sie zwei auswählbare Listen: Aktuelle Projekte und abgeschlossene Projekte. Hier können Sie Projekte anlegen oder Projekte auswählen, um dort wiederum neue Dokumentationseinträge hinzuzufügen oder diese zu bearbeiten. Projekte können außerdem auch wieder gelöscht werden.</string>
+    <string name="info_text_0201"><b>2.1 Projekt anlegen:</b>\nHierzu betätigen Sie bitte den Button unten rechts. Nun können Sie alle allgemeinen Infos zum Projekt eingeben und ein Projektfoto einfügen. Des Weiteren können nach Anlegen eines Projektes einzelne Dokumentationseinträge hinzugefügt (2.1.1) oder wieder gelöscht werden (2.1.2). Diese Einträge sind chronologisch sortiert.</string>
+    <string name="info_text_020101"><b>2.1.1 Dokumentationseintrag anlegen:</b>\n Hierzu betätigen Sie bitte den Button unten rechts.Nun können Sie einen neuen Eintrag zum jeweiligen Projekt hinzufügen, indem Sie ein Foto aufnehmen, eine Notizhandschriftlich beifügen oder eine Sprachmemo aufnehmen. Hierbei wird zum jeweilig eingegebenen Datum daszugehörige Wetter angezeigt.</string>
+    <string name="info_text_020102"><b>2.1.2 Dokumentationseintrag löschen:</b>\n Bitte betätigen Sie neben dem Projekt den Button zum Löschen.</string>
+    <string name="info_text_0202"><b>2.2 Projekt löschen:</b>\n Bitte betätigen Sie neben dem Projekt den Button zum Löschen.</string>
+    <string name="info_text_03"><b>3.</b> Unter „Projekt anlegen“ können Sie direkt ein neues Projekt anlegen.</string>
+    <string name="info_text_04"><b>4.</b> Unter „Info“ können Sie diese Kurzanleitung aufrufen.</string>
+    <string name="info_text_05"><b>5.</b> Unter „Einstellungen“ können Sie alle wichtigen App-Einstellungen ändern.</string>
+    <string name="info_text_outro"><b>ANDROID PROJEKT SS2017</b>\n -Robert Bosek \n -Johannes Eger \n -Marlene Bauer \n <b>© 2017</b></string>
 
 </resources>

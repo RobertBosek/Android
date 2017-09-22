@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="de.ur.mi.android.baudoku.ProjectListActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/app_info_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="@string/info_text_heading"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/app_info_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_intro"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/app_info_01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_01"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_02"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_0201"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_0201"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_020101"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_020101"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_020102"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_020102"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_0202"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_0202"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_03"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_04"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_05"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/app_info_outro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/info_text_outro"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/background_dark" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,9 +42,9 @@ public class ProjectViewActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private CollapsingToolbarLayout title;
 
-    private Button btnCanceled;
-    private Button btnDeleted;
-    private Button btnFinished;
+    private ImageButton btnCanceled;
+    private ImageButton btnDeleted;
+    private ImageButton btnFinished;
 
 
 
@@ -74,9 +75,9 @@ public class ProjectViewActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.project_view_activity_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.project_view_activity_tabs);
         imgView = (ImageView) findViewById(R.id.project_view_activity_project_img);
-        btnCanceled = (Button) findViewById(R.id.project_view_activity_btnCanceled);
-        btnDeleted = (Button) findViewById(R.id.project_view_activity_btnDeleted);
-        btnFinished = (Button) findViewById(R.id.project_view_activity_btnFinished);
+        btnCanceled = (ImageButton) findViewById(R.id.project_view_activity_btnCanceled);
+        btnDeleted = (ImageButton) findViewById(R.id.project_view_activity_btnDeleted);
+        btnFinished = (ImageButton) findViewById(R.id.project_view_activity_btnFinished);
     }
 
     private void initUIElements() {
