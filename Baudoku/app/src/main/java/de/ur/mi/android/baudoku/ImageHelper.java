@@ -17,16 +17,18 @@ public class ImageHelper {
 
 
     public static void setPic(final String imgPath, final ImageView imgView) {
-        if(imgView.getMeasuredWidth() == 0) {
-            imgView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    imgView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    setImageWithWidth(imgPath, imgView);
-                }
-            });
-        } else {
-            setImageWithWidth(imgPath, imgView);
+        if (!imgPath.equals("")) {
+            if (imgView.getMeasuredWidth() == 0) {
+                imgView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        imgView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        setImageWithWidth(imgPath, imgView);
+                    }
+                });
+            } else {
+                setImageWithWidth(imgPath, imgView);
+            }
         }
     }
 

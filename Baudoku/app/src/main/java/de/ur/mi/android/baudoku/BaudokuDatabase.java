@@ -219,6 +219,7 @@ public class BaudokuDatabase {
                 + DATABASE_TABLE_NOTES + " ("
                 + NOTES_KEY_ID + " integer primary key autoincrement, "
                 + NOTES_KEY_PROJECT_ID + " integer not null, "
+                + NOTES_KEY_DATE + " text not null, "
                 + NOTES_KEY_TEMPERATURE + " text not null, "
                 + NOTES_KEY_WEATHER + " text not null, "
                 + NOTES_KEY_IMG_PATH + " text not null, "
