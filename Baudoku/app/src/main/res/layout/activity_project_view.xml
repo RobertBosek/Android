@@ -43,6 +43,42 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        tools:background="@color/colorPrimary">
+
+        <ImageButton
+            android:id="@+id/project_view_activity_btnCanceled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/cancel_02"
+            android:textColor="@color/colorAccent" />
+
+        <ImageButton
+            android:id="@+id/project_view_activity_btnDeleted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/delete_01"
+            android:textColor="@color/colorAccent" />
+
+        <ImageButton
+            android:id="@+id/project_view_activity_btnFinished"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="0.18"
+            android:background="@color/colorAccent"
+            android:src="@drawable/ok_03" />
+
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/project_view_activity_view_pager"
         android:layout_width="match_parent"
@@ -53,44 +89,8 @@
             android:id="@+id/project_view_activity_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.v4.view.ViewPager>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        tools:background="@color/colorPrimary">
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnCanceled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/cancel_02"/>
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnDeleted"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/delete_01"/>
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnFinished"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/ok_03"/>
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
