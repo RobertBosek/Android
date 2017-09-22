@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -43,10 +44,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin">
+            android:layout_marginTop="@dimen/default_margin"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,16 +55,18 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/label_date"/>
+                    android:text="@string/label_date"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/note_create_edit_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,42 +75,53 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/label_weather"/>
+                    android:text="@string/label_weather"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/note_create_edit_weather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <TextView
                 style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/section_title_image"/>
+                android:text="@string/section_title_image" />
 
             <ImageView
                 android:id="@+id/note_create_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_black_24dp"/>
+                android:src="@drawable/ic_add_black_24dp"
+                app:srcCompat="@drawable/add_photo" />
 
             <TextView
                 style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/section_title_note_memo"/>
+                android:text="@string/section_title_note_memo" />
 
 
             <EditText
                 android:id="@+id/note_create_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/note_size"/>
+                android:minHeight="@dimen/note_size" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
