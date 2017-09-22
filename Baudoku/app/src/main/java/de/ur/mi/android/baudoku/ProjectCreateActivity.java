@@ -65,6 +65,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private int id;
 
+    private String tempPath;
     private String imgPath;
     private String title;
     private String address;
@@ -207,6 +208,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(timeStamp, ".jpg", storageDir);
+        tempPath = imgPath;
         imgPath = image.getAbsolutePath();
         return image;
     }

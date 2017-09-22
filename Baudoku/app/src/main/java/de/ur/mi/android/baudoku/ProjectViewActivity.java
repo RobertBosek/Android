@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -223,7 +224,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         }
     }
 
-
     public static class ProjectViewTabFragment extends Fragment {
 
         private static final String PROJECT_VIEW_TAB = "project_view_tab";
@@ -235,7 +235,7 @@ public class ProjectViewActivity extends AppCompatActivity {
         private TextView clientView;
         private TextView attendeesView;
 
-        private TextView addNote;
+        private FloatingActionButton addNote;
         private ListView notesList;
         private TextView emptyListText;
         private ArrayList<NoteItem> notes;
@@ -273,7 +273,7 @@ public class ProjectViewActivity extends AppCompatActivity {
         }
 
         public void getNotesFragmentUIElements() {
-            addNote = (TextView) rootView.findViewById(R.id.fragment_project_view_notes);
+            addNote = (FloatingActionButton) rootView.findViewById(R.id.fragment_project_view_notes);
             notesList = (ListView) rootView.findViewById(R.id.fragment_list_view);
             emptyListText = (TextView) rootView.findViewById(R.id.fragment_list_empty);
             emptyListText.setText(R.string.text_no_existing_notes);

@@ -4,10 +4,11 @@ package de.ur.mi.android.baudoku;
 public class NoteItem {
 
     private int id;
-    private String imgPath;
     private String date;
+    private String temperature;
     private String weather;
 
+    private String imgPath;
     private String memoPath;
     private String notes;
 
