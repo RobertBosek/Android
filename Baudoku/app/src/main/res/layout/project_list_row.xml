@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start|center"
-            android:text="@string/title" />
+            android:text="@string/label_title" />
 
         <TextView
             android:id="@+id/address_view"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start|center"
-            android:text="@string/address" />
+            android:text="@string/label_address" />
 
         <TextView
             android:id="@+id/date_view"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_weight="1"
-            android:text="@string/start" />
+            android:text="@string/label_start" />
 
     </LinearLayout>
 
