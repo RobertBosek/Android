@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#505050</color>
     <color name="colorAccent">#30B8DB</color>
     <color name="trasparentWhite">#80FFFFFF</color>
+    <color name="sectionDevider">#18000000</color>
 
 </resources>

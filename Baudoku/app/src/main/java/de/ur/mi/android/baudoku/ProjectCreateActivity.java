@@ -21,8 +21,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,8 +49,9 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private ImageView editImg;
     private EditText editTitle;
-    private EditText editAddress;
     private EditText editStart;
+    private EditText editAddress;
+    private EditText editCity;
     private EditText editClient;
     private EditText editAttendees;
 
@@ -64,12 +63,12 @@ public class ProjectCreateActivity extends AppCompatActivity {
     private LocationListener ll;
 
     private int id;
-
     private String tempPath;
     private String imgPath;
     private String title;
-    private String address;
     private String start;
+    private String address;
+    private String city;
 
 
     @Override
@@ -100,28 +99,30 @@ public class ProjectCreateActivity extends AppCompatActivity {
         id = extras.getInt(getString(R.string.intent_extra_key_project_id));
     }
 
+    private void insertData() {
+        imgPath = editProject.getImgPath();
+        ImageHelper.setPic(imgPath, editImg);
+        editTitle.setText(editProject.getTitle(), TextView.BufferType.EDITABLE);
+        editStart.setText(editProject.getStart(), TextView.BufferType.EDITABLE);
+        editAddress.setText(editProject.getAddress(), TextView.BufferType.EDITABLE);
+        editCity.setText(editProject.getCity(), TextView.BufferType.EDITABLE);;
+        editClient.setText(editProject.getClient(), TextView.BufferType.EDITABLE);
+        editAttendees.setText(editProject.getAttendees(), TextView.BufferType.EDITABLE);
+    }
+
     private void getUIElements() {
         editImg = (ImageView) findViewById(R.id.project_create_activity_add_project_img);
 
         editTitle = (EditText) findViewById(R.id.project_create_activity_add_project_title);
-        editAddress = (EditText) findViewById(R.id.project_create_activity_add_project_address);
         editStart = (EditText) findViewById(R.id.project_create_activity_add_project_start);
+        editAddress = (EditText) findViewById(R.id.project_create_activity_add_project_address);
+        editCity = (EditText) findViewById(R.id.project_create_activity_add_project_city);
         editClient = (EditText) findViewById(R.id.project_create_activity_add_project_client);
         editAttendees = (EditText) findViewById(R.id.project_create_activity_add_project_attendees);
 
         btnBack = (Button) findViewById(R.id.btnBack);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnGetLocation = (ImageButton) findViewById(R.id.project_create_activity_add_current_location);
-    }
-
-    private void insertData() {
-        imgPath = editProject.getImgPath();
-        ImageHelper.setPic(imgPath, editImg);
-        editTitle.setText(editProject.getTitle(), TextView.BufferType.EDITABLE);
-        editAddress.setText(editProject.getAddress(), TextView.BufferType.EDITABLE);;
-        editStart.setText(editProject.getStart(), TextView.BufferType.EDITABLE);;
-        editClient.setText(editProject.getClient(), TextView.BufferType.EDITABLE);;
-        editAttendees.setText(editProject.getAttendees(), TextView.BufferType.EDITABLE);
     }
 
     private void initListeners() {
@@ -189,13 +190,11 @@ public class ProjectCreateActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
-                Log.d("img", "abdd1");
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 Toast.makeText(this, R.string.toast_on_failed_filecreation, Toast.LENGTH_SHORT).show();
             }
             if (photoFile != null) {
-                Log.d("img", "abdd1");
                 Uri photoURI = FileProvider.getUriForFile(this, "de.ur.mi.android.baudoku.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -318,8 +317,8 @@ public class ProjectCreateActivity extends AppCompatActivity {
             double latitude = location.getLatitude();
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            String addressString = addresses.get(0).getAddressLine(0) + "\n" + addresses.get(0).getAddressLine(1);
-            editAddress.setText(addressString);
+            editAddress.setText(addresses.get(0).getAddressLine(0));
+            editCity.setText(addresses.get(0).getAddressLine(1));
         } catch(SecurityException e) {
             e.printStackTrace();
         } catch (java.io.IOException e) {
@@ -329,23 +328,29 @@ public class ProjectCreateActivity extends AppCompatActivity {
     }
 
     private void saveInputProjectView() {
+
         title = editTitle.getText().toString();
-        address = editAddress.getText().toString();
         start = editStart.getText().toString();
+        address = editAddress.getText().toString();
+        city = editCity.getText().toString();
         String client = editClient.getText().toString();
         String attendees = editAttendees.getText().toString();
 
         if (checkInput()) {
+
             if (imgPath != null) {
                 editProject.setImgPath(imgPath);
             } else {
                 editProject.setImgPath("");
             }
+
             editProject.setTitle(title);
-            editProject.setAddress(address);
             editProject.setStart(start);
+            editProject.setAddress(address);
+            editProject.setCity(city);
             editProject.setClient(client);
             editProject.setAttendees(attendees);
+
             db.open();
             if (id != -1) {
                 db.updateProjectItem(editProject);
@@ -353,6 +358,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
                 id = db.insertProjectItem(editProject);
             }
             db.close();
+
             Intent startProjectViewActivityIntent = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
             startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), id);
             startActivity(startProjectViewActivityIntent);
@@ -361,7 +367,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
     }
 
     private boolean checkInput() {
-        if (!title.equals("") && !address.equals("") && !start.equals("")) {
+        if (!title.equals("" ) && !start.equals("") && !address.equals("") && !city.equals("")) {
             return true;
         } else {
             makeNecessaryInputDialog();

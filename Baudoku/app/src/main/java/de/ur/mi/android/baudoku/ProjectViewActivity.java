@@ -230,8 +230,9 @@ public class ProjectViewActivity extends AppCompatActivity {
 
         private View rootView;
 
-        private TextView addressView;
         private TextView startView;
+        private TextView addressView;
+        private TextView cityView;
         private TextView clientView;
         private TextView attendeesView;
 
@@ -273,9 +274,9 @@ public class ProjectViewActivity extends AppCompatActivity {
         }
 
         public void getNotesFragmentUIElements() {
-            addNote = (FloatingActionButton) rootView.findViewById(R.id.fragment_project_view_notes);
-            notesList = (ListView) rootView.findViewById(R.id.fragment_list_view);
-            emptyListText = (TextView) rootView.findViewById(R.id.fragment_list_empty);
+            addNote = (FloatingActionButton) rootView.findViewById(R.id.fragment_project_view_button_create_note);
+            notesList = (ListView) rootView.findViewById(R.id.fragment_project_view_noteslistview);
+            emptyListText = (TextView) rootView.findViewById(R.id.fragment_project_view_emptynoteslist);
             emptyListText.setText(R.string.text_no_existing_notes);
         }
 
@@ -342,15 +343,17 @@ public class ProjectViewActivity extends AppCompatActivity {
         }
 
         private void getDetailsFragmentUIElements() {
-            addressView = (TextView) rootView.findViewById(R.id.project_view_detail_address);
             startView = (TextView) rootView.findViewById(R.id.project_view_detail_start);
+            addressView = (TextView) rootView.findViewById(R.id.project_view_detail_address);
+            cityView = (TextView) rootView.findViewById(R.id.project_view_detail_city);
             clientView = (TextView) rootView.findViewById(R.id.project_view_detail_client);
             attendeesView = (TextView) rootView.findViewById(R.id.project_view_detail_attendees);
         }
 
         private void setDetails() {
-            addressView.setText(project.getAddress());
             startView.setText(project.getStart());
+            addressView.setText(project.getAddress());
+            cityView.setText(project.getStart());
             clientView.setText(project.getClient());
             attendeesView.setText(project.getAttendees());
         }

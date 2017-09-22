@@ -14,8 +14,9 @@ public class ProjectItem implements Comparable<ProjectItem>{
 
     private String imgPath;
     private String title;
-    private String address;
     private String start;
+    private String address;
+    private String city;
     private String client;
     private String attendees;
     private int id;
@@ -26,11 +27,12 @@ public class ProjectItem implements Comparable<ProjectItem>{
         this.status = STATUS_PENDING;
     }
 
-    public ProjectItem(String imgPath, String title, String address, String start, String client, String attendees, int id, int status) {
+    public ProjectItem(String imgPath, String title, String start, String address, String city, String client, String attendees, int id, int status) {
         this.imgPath = imgPath;
         this.title = title;
-        this.address = address;
         this.start = start;
+        this.address = address;
+        this.city = city;
         this.client = client;
         this.attendees = attendees;
         this.id = id;
@@ -45,12 +47,16 @@ public class ProjectItem implements Comparable<ProjectItem>{
         this.title = title;
     }
 
+    public void setStart(String start) {
+        this.start = start;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setClient(String client) {
@@ -73,12 +79,16 @@ public class ProjectItem implements Comparable<ProjectItem>{
         return this.title;
     }
 
+    public String getStart() {
+        return this.start;
+    }
+
     public String getAddress() {
         return this.address;
     }
 
-    public String getStart() {
-        return this.start;
+    public String getCity() {
+        return this.city;
     }
 
     public String getClient() {
@@ -99,7 +109,7 @@ public class ProjectItem implements Comparable<ProjectItem>{
 
     @Override
     public int compareTo(ProjectItem another) {
-        return this.start.compareTo(another.start);
+        return this.getStart().compareTo(another.getStart());
     }
 
 }

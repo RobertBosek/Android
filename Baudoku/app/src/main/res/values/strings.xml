@@ -17,17 +17,21 @@
 
     <string name="description_button_find_location">autofind location</string>
 
-    <string name="label_address">Adresse:</string>
     <string name="label_title">Titel:</string>
     <string name="label_start">Projektbeginn:</string>
+    <string name="label_address">Straße:</string>
+    <string name="label_city">Stadt:</string>
     <string name="label_client">Auftraggeber:</string>
     <string name="label_attendees">Anwesende:</string>
 
     <string name="label_date">Datum</string>
     <string name="label_weather">Wetter:</string>
 
+    <string name="section_title_address">Adresse</string>
+    <string name="section_title_other">Sonstiges</string>
     <string name="section_title_image">Aufnahme</string>
     <string name="section_title_note_memo">Notiz/Sprachmemo</string>
+
 
     <string name="text_no_existing_projects">Keine Projekte vorhanden.\nZum Erstellen eines neuen Projekts + drücken</string>
     <string name="text_no_existing_notes">Keine Notizen vorhanden.</string>

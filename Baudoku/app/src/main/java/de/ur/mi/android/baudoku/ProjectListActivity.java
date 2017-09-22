@@ -29,7 +29,6 @@ public class ProjectListActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FloatingActionButton btnCreateProject;
-    private ProjectListTabAdapter tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,13 @@ public class ProjectListActivity extends AppCompatActivity {
         initUIElements();
     }
 
-    private void initDatabase() {
-        db = new BaudokuDatabase(this);
+    @Override
+    protected void onResume() {
+        initDatabase();
+        ProjectListTabAdapter tabAdapter = new ProjectListTabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        super.onResume();
     }
 
     private void getUIElements() {
@@ -52,26 +56,19 @@ public class ProjectListActivity extends AppCompatActivity {
 
     private void initUIElements() {
         setSupportActionBar(toolbar);
-
         btnCreateProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent startProjectCreateActivityIntent = new Intent(ProjectListActivity.this, ProjectCreateActivity.class);
                 startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), -1);
-                db.close();
                 startActivity(startProjectCreateActivityIntent);
             }
         });
 
     }
 
-    @Override
-    protected void onResume() {
-        initDatabase();
-        tabAdapter = new ProjectListTabAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tabAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        super.onResume();
+    private void initDatabase() {
+        db = new BaudokuDatabase(this);
     }
 
 
@@ -95,9 +92,9 @@ public class ProjectListActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "pending";
+                    return "laufend";
                 case 1:
-                    return "done";
+                    return "beendet";
             }
             return null;
         }
@@ -128,18 +125,17 @@ public class ProjectListActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            rootView = inflater.inflate(R.layout.fragment_project_list_listview, container, false);
+            rootView = inflater.inflate(R.layout.fragment_project_list, container, false);
             getFragmentUIElements();
             setListAdapter();
             setListeners();
             refreshList();
-
             return rootView;
         }
 
         public void getFragmentUIElements() {
-            projectsList = (ListView) rootView.findViewById(R.id.fragment_list_view);
-            emptyListText = (TextView) rootView.findViewById(R.id.fragment_list_empty);
+            projectsList = (ListView) rootView.findViewById(R.id.fragment_project_list_projectslistview);
+            emptyListText = (TextView) rootView.findViewById(R.id.fragment_project_list_emptyprojectslist);
             emptyListText.setText(R.string.text_no_existing_projects);
         }
 
@@ -221,15 +217,19 @@ public class ProjectListActivity extends AppCompatActivity {
             ProjectItem project = projects.get(position);
 
             if (project != null) {
-                ImageView img = (ImageView) v.findViewById(R.id.project_list_item_img_view);
-                TextView title = (TextView) v.findViewById(R.id.project_list_item_title_view);
-                title.setText(project.getTitle());
-                TextView address = (TextView) v.findViewById(R.id.project_list_item_address_view);
-                address.setText(project.getAddress().replace("\n", ", "));
-                TextView start = (TextView) v.findViewById(R.id.project_list_item_start_view);
-                start.setText(project.getStart());
+                ImageView imgView = (ImageView) v.findViewById(R.id.project_list_item_img_view);
+                ImageHelper.setPic(project.getImgPath(), imgView);
 
-                ImageView status = (ImageView) v.findViewById(R.id.project_list_item_status);
+                TextView titleView = (TextView) v.findViewById(R.id.project_list_item_title_view);
+                titleView.setText(project.getTitle());
+                TextView startView = (TextView) v.findViewById(R.id.project_list_item_start_view);
+                startView.setText(project.getStart());
+                TextView addressView = (TextView) v.findViewById(R.id.project_list_item_address_view);
+                addressView.setText(project.getAddress());
+                TextView cityView = (TextView) v.findViewById(R.id.project_list_item_city_view);
+                cityView.setText(project.getCity());
+
+                ImageView statusView = (ImageView) v.findViewById(R.id.project_list_item_status);
             }
 
             return v;

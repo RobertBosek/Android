@@ -8,13 +8,13 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/fragment_list_view"
+            android:id="@+id/fragment_project_view_noteslistview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true" />
 
         <TextView
-            android:id="@+id/fragment_list_empty"
+            android:id="@+id/fragment_project_view_emptynoteslist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
@@ -26,7 +26,7 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/project_list_activity_button_create_project"
+        android:id="@+id/fragment_project_view_button_create_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
