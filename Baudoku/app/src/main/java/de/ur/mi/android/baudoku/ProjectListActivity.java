@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -217,6 +218,7 @@ public class ProjectListActivity extends AppCompatActivity {
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Log.d("ABCD", projects.toString());
             ProjectItem selected = projects.get(info.position);
             switch (item.getItemId()) {
                 case R.id.context_menu_edit:

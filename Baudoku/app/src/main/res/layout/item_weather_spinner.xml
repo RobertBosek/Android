@@ -7,6 +7,6 @@
     <ImageView
         android:id="@+id/weather_spinner_icon"
         android:layout_width="@dimen/size_clickable"
-        android:layout_height="@dimen/size_clickable" />
-
+        android:layout_height="@dimen/size_clickable"
+        android:tint="@color/black"/>
 </LinearLayout>

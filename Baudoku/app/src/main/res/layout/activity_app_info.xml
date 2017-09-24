@@ -27,7 +27,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:text="@string/info_text_heading"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

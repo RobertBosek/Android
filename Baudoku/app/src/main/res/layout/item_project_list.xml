@@ -8,8 +8,7 @@
         android:id="@+id/project_list_item_img_view"
         android:layout_width="@dimen/list_image_size"
         android:layout_height="@dimen/list_image_size"
-        android:src="@drawable/ic_default_project"
-        android:tint="@color/colorPrimary"/>
+        android:src="@drawable/ic_default_project"/>
 
     <LinearLayout
         android:layout_width="0dp"

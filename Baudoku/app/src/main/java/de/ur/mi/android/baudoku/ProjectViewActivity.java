@@ -15,7 +15,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +42,7 @@ public class ProjectViewActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private CollapsingToolbarLayout title;
-
+    private static FloatingActionButton addNote;
 
 
     @Override
@@ -74,9 +73,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         db.open();
         project = db.getProjectItem(id);
         db.close();
-        Log.d("lelid", String.valueOf(id));
-        Log.d("lelproject", String.valueOf(project.getId()));
-
     }
 
     public void getUIElements() {
@@ -84,10 +80,13 @@ public class ProjectViewActivity extends AppCompatActivity {
         toolbar.setTitle(project.getTitle());
         title = (CollapsingToolbarLayout) findViewById(R.id.project_view_activity_title);
         title.setTitle(project.getTitle());
+        title.setExpandedTitleColor(getResources().getColor(R.color.white));
+        title.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
 
         viewPager = (ViewPager) findViewById(R.id.project_view_activity_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.project_view_activity_tabs);
         imgView = (ImageView) findViewById(R.id.project_view_activity_project_img);
+        addNote = (FloatingActionButton) findViewById(R.id.project_view_activity_btnCreate_note);
     }
 
     private void initUIElements() {
@@ -96,6 +95,17 @@ public class ProjectViewActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout title = (CollapsingToolbarLayout) findViewById(R.id.project_view_activity_title);
         title.setTitle(project.getTitle());
+
+
+        addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startNoteCreateActivityIntent = new Intent(ProjectViewActivity.this, NoteCreateActivity.class);
+                startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), project.getId());
+                startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), -1);
+                startActivity(startNoteCreateActivityIntent);
+            }
+        });
 
         if (!project.getImgPath().equals("")) {
             ImageHelper.setPic(project.getImgPath(), imgView);
@@ -233,7 +243,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         private TextView clientView;
         private TextView attendeesView;
 
-        private FloatingActionButton addNote;
         private ListView notesList;
         private TextView emptyListText;
         private ArrayList<NoteItem> notes;
@@ -271,7 +280,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         }
 
         public void getNotesFragmentUIElements() {
-            addNote = (FloatingActionButton) rootView.findViewById(R.id.fragment_project_view_button_create_note);
             notesList = (ListView) rootView.findViewById(R.id.fragment_project_view_noteslistview);
             emptyListText = (TextView) rootView.findViewById(R.id.fragment_project_view_emptynoteslist);
             emptyListText.setText(R.string.text_no_existing_notes);
@@ -283,6 +291,7 @@ public class ProjectViewActivity extends AppCompatActivity {
             notesList.setAdapter(notesAdapter);
             notesList.setEmptyView(emptyListText);
             registerForContextMenu(notesList);
+            notesList.setNestedScrollingEnabled(true);
         }
 
         private void setListeners() {
@@ -290,16 +299,6 @@ public class ProjectViewActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     showNoteView(position);
-                }
-            });
-
-            addNote.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
-                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), project.getId());
-                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), -1);
-                    startActivity(startNoteCreateActivityIntent);
                 }
             });
         }
@@ -320,7 +319,7 @@ public class ProjectViewActivity extends AppCompatActivity {
             notes.addAll(temp);
             notesAdapter.notifyDataSetChanged();
         }
-
+/*
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
@@ -331,8 +330,8 @@ public class ProjectViewActivity extends AppCompatActivity {
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            NoteItem selected = notes.get(info.position);
-            switch (item.getItemId()) {
+            NoteItem selected = notes.get(info.position);                // ArrayList notes ist hier null
+            switch (item.getItemId()) {                                  // eine Lösung der Grund wurde nicht gefunden
                 case R.id.context_menu_edit:
                     showNoteCreate(selected.getId());
                     return true;
@@ -343,6 +342,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                     return super.onContextItemSelected(item);
             }
         }
+
         private void showNoteCreate(int id) {
             Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
             startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), id);
@@ -367,7 +367,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                     })
                     .show();
         }
-
+*/
         private void initDetailsFragment() {
             getDetailsFragmentUIElements();
             setDetails();
@@ -402,18 +402,13 @@ public class ProjectViewActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             View v = convertView;
-
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = inflater.inflate(R.layout.item_note_list, null);
-
             }
-
             NoteItem note = notes.get(position);
-
             if (project != null) {
                 ImageView img = (ImageView) v.findViewById(R.id.project_view_note_item_img_view);
                 ImageHelper.setPic(note.getImgPath(), img);
@@ -424,9 +419,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                 ImageView weather = (ImageView) v.findViewById(R.id.project_view_note_item_weather);
                 weather.setImageDrawable(context.getResources().getDrawable(Integer.valueOf(note.getWeather())));
             }
-
             return v;
         }
-
     }
 }

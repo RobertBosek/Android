@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.DataSetObserver;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -32,8 +30,16 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,14 +54,15 @@ public class NoteCreateActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 10;
 
     private NoteItem editNote;
+    private ProjectItem project;
     private BaudokuDatabase db;
     private MediaRecorder recorder;
     private MediaPlayer player;
 
-    WeatherIconAdapter adapter;
-    private Spinner spinner;
+    private static WeatherIconAdapter adapter;
+    private static Spinner spinner;
     private EditText editDate;
-    private EditText editTemperature;
+    private static EditText editTemperature;
     private ImageView editImg;
     private EditText editNotes;
 
@@ -65,7 +72,9 @@ public class NoteCreateActivity extends AppCompatActivity {
     private ImageButton btnMemoPlay;
     private ImageButton btnMemoAdmin;
 
-    private Integer[] drawables = new Integer[]{R.drawable.ic_info, R.drawable.delete_01, R.drawable.cancel_02};
+    private Integer[] drawables = new Integer[]{R.drawable.ic_weather_00d, R.drawable.ic_weather_01d, R.drawable.ic_weather_02d,
+            R.drawable.ic_weather_03d, R.drawable.ic_weather_04d, R.drawable.ic_weather_09d, R.drawable.ic_weather_10d,
+            R.drawable.ic_weather_11d, R.drawable.ic_weather_13d, R.drawable.ic_weather_50d};
     private int id;
     private int projectId;
     private String tempImgPath;
@@ -183,6 +192,9 @@ public class NoteCreateActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         id = extras.getInt(getString(R.string.intent_extra_key_id_note));
         projectId = extras.getInt(getString(R.string.intent_extra_key_id_project));
+        db.open();
+        project = db.getProjectItem(projectId);
+        db.close();
     }
 
     private void insertData() {
@@ -296,7 +308,9 @@ public class NoteCreateActivity extends AppCompatActivity {
     }
 
     private void getWeather() {
-
+        WeatherTask task = new WeatherTask(this);
+        String zip = project.getCity().split(" ")[0];
+        task.execute(zip);
     }
 
 
@@ -460,6 +474,88 @@ public class NoteCreateActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    private static class WeatherTask extends AsyncTask<String, Void, Void> {
+
+        private Context context;
+        private String icon;
+        private String temperature;
+
+        public WeatherTask (Context context) {
+            this.context = context;
+        }
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                String data = new HttpClient().getWeatherData(params[0]);
+                getWeatherdata(data);
+            } catch (JSONException e) {
+
+            }
+            return null;
+        }
+
+        private void getWeatherdata(String data) throws JSONException {
+            JSONObject jObj = new JSONObject(data);
+            icon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon");
+            temperature = String.valueOf(jObj.getJSONObject("main").getDouble("temp"));
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            editTemperature.setText(temperature);
+            Log.d("lel", icon);
+            final int resourceId = context.getResources().getIdentifier("ic_weather_" + icon.substring(0,2) + "d", "drawable", context.getPackageName());
+            Log.d("lel", String.valueOf(R.drawable.ic_weather_01d));
+            Log.d("lel", String.valueOf(resourceId));
+            Log.d("lel", "ic_weather_" + icon.substring(0,2) + "d.png");
+            int spinnerPosition = adapter.getPosition(resourceId);
+            spinner.setSelection(spinnerPosition);
+        }
+
+
+    }
+
+    private static class HttpClient {
+
+        private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?zip=";
+        private static String KEY = "&APPID=975ef12ac314cba341fa24d5f8b2db99";
+        private static String CELSIUS = "&units=metric";
+
+        public String getWeatherData(String location) {
+            HttpURLConnection con = null ;
+            InputStream is = null;
+
+            try {
+                con = (HttpURLConnection) ( new URL(BASE_URL + location + ",de" + KEY + CELSIUS)).openConnection();
+                con.setRequestMethod("GET");
+                con.setDoInput(true);
+                con.setDoOutput(true);
+                con.connect();
+
+                StringBuffer buffer = new StringBuffer();
+                is = con.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String line = null;
+                while ( (line = br.readLine()) != null )
+                    buffer.append(line + "rn");
+
+                is.close();
+                con.disconnect();
+                return buffer.toString();
+            }
+            catch(Throwable t) {
+                t.printStackTrace();
+            }
+            finally {
+                try { is.close(); } catch(Throwable t) {}
+                try { con.disconnect(); } catch(Throwable t) {}
+            }
+
+            return null;
+
+        }
+    }
+
     private static class WeatherIconAdapter extends ArrayAdapter<Integer> {
         private ArrayList<Integer> icons;
         private Context context;
@@ -493,6 +589,5 @@ public class NoteCreateActivity extends AppCompatActivity {
             weatherIcon.setImageDrawable(context.getResources().getDrawable(icons.get(position)));
             return v;
         }
-
     }
 }
