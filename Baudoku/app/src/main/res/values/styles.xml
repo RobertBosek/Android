@@ -1,14 +1,24 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Basic Theme -->
+    <style name="AppTheme" >
+
         <item name="colorControlNormal">#c5c5c5</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!-- Girl Theme -->
+    <style name="GirlTheme" >
+
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorAccentGirl</item>
+        <item name="colorControlHighlight">@color/colorAccentGirl</item>
+        <item name="colorPrimary">@color/colorPrimaryGirl</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGirl</item>
+        <item name="colorAccent">@color/colorAccentGirl</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

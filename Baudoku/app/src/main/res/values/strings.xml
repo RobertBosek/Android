@@ -3,6 +3,12 @@
     <string name="label_start_activity_baudoku">BAUDOKU</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
+
+    <string name="project_style">Ändern Sie das Design Ihrer App:</string>
+    <string name="project_style_1">Default</string>
+    <string name="project_style_2">Mädchenstyle</string>
+    <string name="project_setting_style">Style einstellen</string>
+
     <string name="toolbar_info">Info</string>
     <string name="toolbar_project_edit">Projekt bearbeiten</string>
     <string name="toolbar_project_finish">Projekt fertigstellen</string>
