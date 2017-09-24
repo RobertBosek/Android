@@ -11,18 +11,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,10 +43,6 @@ public class ProjectViewActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private CollapsingToolbarLayout title;
 
-    private ImageButton btnCanceled;
-    private ImageButton btnDeleted;
-    private ImageButton btnFinished;
-
 
 
     @Override
@@ -58,34 +55,40 @@ public class ProjectViewActivity extends AppCompatActivity {
         initUIElements();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tabAdapter = new ProjectViewActivity.ProjectViewTabAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
     private void initDatabase() {
         db = new BaudokuDatabase(this);
     }
 
     public void getDisplayProject() {
         Bundle extras = getIntent().getExtras();
-        int id = extras.getInt(getString(R.string.intent_extra_key_project_id));
+        int id = extras.getInt(getString(R.string.intent_extra_key_id_project));
         db.open();
         project = db.getProjectItem(id);
         db.close();
     }
 
     public void getUIElements() {
-        toolbar = (Toolbar) findViewById(R.id.project_view_activity_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.project_view_app_bar);
+        toolbar.setTitle(project.getTitle());
+        title = (CollapsingToolbarLayout) findViewById(R.id.project_view_activity_title);
+        title.setTitle(project.getTitle());
+
         viewPager = (ViewPager) findViewById(R.id.project_view_activity_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.project_view_activity_tabs);
         imgView = (ImageView) findViewById(R.id.project_view_activity_project_img);
-        btnCanceled = (ImageButton) findViewById(R.id.project_view_activity_btnCanceled);
-        btnDeleted = (ImageButton) findViewById(R.id.project_view_activity_btnDeleted);
-        btnFinished = (ImageButton) findViewById(R.id.project_view_activity_btnFinished);
     }
 
     private void initUIElements() {
         setSupportActionBar(toolbar);
-
-        tabAdapter = new ProjectViewActivity.ProjectViewTabAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tabAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CollapsingToolbarLayout title = (CollapsingToolbarLayout) findViewById(R.id.project_view_activity_title);
         title.setTitle(project.getTitle());
@@ -93,25 +96,6 @@ public class ProjectViewActivity extends AppCompatActivity {
         if (!project.getImgPath().equals("")) {
             ImageHelper.setPic(project.getImgPath(), imgView);
         }
-
-        btnCanceled.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                makeCancelDialog();
-            }
-        });
-        btnDeleted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                makeDeleteDialog();
-            }
-        });
-        btnFinished.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                makeFinishDialog();
-            }
-        });
     }
 
     private void makeCancelDialog() {
@@ -190,8 +174,16 @@ public class ProjectViewActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.project_view_menu_edit_project) {
             Intent startProjectCreateActivityIntent = new Intent(ProjectViewActivity.this, ProjectCreateActivity.class);
-            startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
+            startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), project.getId());
             startActivity(startProjectCreateActivityIntent);
+        } else if ( id == R.id.project_view_menu_finish_project) {
+            makeFinishDialog();
+        } else if ( id == R.id.project_view_menu_cancel_project) {
+            makeCancelDialog();
+        } else if ( id == R.id.project_view_menu_delete_project) {
+            makeDeleteDialog();
+        } else if ( id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -286,6 +278,7 @@ public class ProjectViewActivity extends AppCompatActivity {
             notesAdapter = new ProjectViewActivity.NoteListAdapter(getContext(), notes);
             notesList.setAdapter(notesAdapter);
             notesList.setEmptyView(emptyListText);
+            registerForContextMenu(notesList);
         }
 
         private void setListeners() {
@@ -296,20 +289,12 @@ public class ProjectViewActivity extends AppCompatActivity {
                 }
             });
 
-            notesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    showContextMenu(position);
-                    return true;
-                }
-            });
-
             addNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
-                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
-                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_note_id), -1);
+                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), project.getId());
+                    startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), -1);
                     startActivity(startNoteCreateActivityIntent);
                 }
             });
@@ -317,14 +302,9 @@ public class ProjectViewActivity extends AppCompatActivity {
 
         private void showNoteView(int position) {
             int id = notes.get(position).getId();
-            Intent startNoteViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
-            startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), project.getId());
-            startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_note_id), id);
+            Intent startNoteViewActivityIntent = new Intent(getActivity(), NoteViewActivity.class);
+            startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), id);
             getActivity().startActivity(startNoteViewActivityIntent);
-        }
-
-        private void showContextMenu(int position) {
-
         }
 
         public void refreshList() {
@@ -337,6 +317,52 @@ public class ProjectViewActivity extends AppCompatActivity {
             notesAdapter.notifyDataSetChanged();
         }
 
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.context_menu_list, menu);
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            NoteItem selected = notes.get(info.position);
+            switch (item.getItemId()) {
+                case R.id.context_menu_edit:
+                    showNoteCreate(selected.getId());
+                    return true;
+                case R.id.context_menu_delete:
+                    makeDeleteDialog(selected);
+                    return true;
+                default:
+                    return super.onContextItemSelected(item);
+            }
+        }
+        private void showNoteCreate(int id) {
+            Intent startNoteCreateActivityIntent = new Intent(getActivity(), NoteCreateActivity.class);
+            startNoteCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), id);
+            startActivity(startNoteCreateActivityIntent);
+        }
+
+        private void makeDeleteDialog(final NoteItem note) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(R.string.dialog_title_delete_note)
+                    .setMessage(R.string.dialog_text_delete_note)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.open();
+                            db.removeNoteItem(project.getId());
+                            db.close();
+                            refreshList();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+        }
 
         private void initDetailsFragment() {
             getDetailsFragmentUIElements();
@@ -378,7 +404,7 @@ public class ProjectViewActivity extends AppCompatActivity {
             if (v == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.item_project_list, null);
+                v = inflater.inflate(R.layout.item_note_list, null);
 
             }
 
@@ -388,6 +414,8 @@ public class ProjectViewActivity extends AppCompatActivity {
                 ImageView img = (ImageView) v.findViewById(R.id.project_view_note_item_img_view);
                 TextView date = (TextView) v.findViewById(R.id.project_view_note_item_date_view);
                 date.setText(note.getDate());
+                TextView temp = (TextView) v.findViewById(R.id.project_view_note_item_date_temperature);
+                temp.setText(note.getTemperature());
                 ImageView weather = (ImageView) v.findViewById(R.id.project_view_note_item_weather);
             }
 

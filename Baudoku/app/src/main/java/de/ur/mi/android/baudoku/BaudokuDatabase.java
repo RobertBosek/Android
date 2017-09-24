@@ -146,7 +146,7 @@ public class BaudokuDatabase {
         noteValues.put(NOTES_KEY_IMG_PATH, note.getImgPath());
         noteValues.put(NOTES_KEY_NOTE, note.getNote());
         noteValues.put(NOTES_KEY_MEMO_PATH, note.getMemoPath());
-        long id = db.insert(DATABASE_TABLE_PROJECTS, null, noteValues);
+        long id = db.insert(DATABASE_TABLE_NOTES, null, noteValues);
         return (int) id;
     }
 

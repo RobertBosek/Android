@@ -13,9 +13,9 @@
         android:id="@+id/fragment_project_list_emptyprojectslist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/activity_default_margin"
+        android:layout_marginStart="@dimen/activity_default_margin"
+        android:layout_marginEnd="@dimen/activity_default_margin"
         android:gravity="center"
         android:text="@string/text_no_existing_projects" />
 

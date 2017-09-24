@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/note_view_app_bar"
+            layout="@layout/app_bar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/activity_default_margin"
+            android:layout_marginStart="@dimen/activity_default_margin"
+            android:layout_marginEnd="@dimen/activity_default_margin"
+            android:layout_marginBottom="@dimen/activity_default_margin">
+            <TextView
+                android:id="@+id/note_view_activity_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_date"/>
+
+            <TextView
+                android:id="@+id/note_view_activity_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_date"/>
+
+            <ImageView
+                android:id="@+id/note_view_activity_weather"
+                android:layout_width="@dimen/activity_default_margin"
+                android:layout_height="@dimen/activity_default_margin"
+                android:src="@drawable/info_01"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sectionDevider"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/section_title_image"
+            android:layout_marginStart="@dimen/activity_default_margin"/>
+
+        <ImageView
+            android:id="@+id/note_view_activity_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_photo"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sectionDevider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/activity_default_margin"
+            android:layout_marginEnd="@dimen/activity_default_margin">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/section_title_note_memo" />
+            <ImageButton
+                android:id="@+id/note_view_activity_btnPlayMemo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_default_margin"
+                android:layout_gravity="center"
+                android:src="@drawable/ok_03"/>
+            <TextView
+                android:id="@+id/note_view_activity_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/info_text_02"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

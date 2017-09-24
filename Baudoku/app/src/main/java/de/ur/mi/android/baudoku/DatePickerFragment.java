@@ -28,7 +28,7 @@ public class DatePickerFragment extends DialogFragment implements
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        TextView textView = (TextView) getActivity().findViewById(R.id.project_create_activity_add_project_start);
+        TextView textView = (TextView) getActivity().findViewById(R.id.date_edit);
 
         GregorianCalendar date = new GregorianCalendar(year, month, day);
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,

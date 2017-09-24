@@ -49,15 +49,19 @@
                 android:id="@+id/project_create_activity_add_project_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
                 android:layout_gravity="center"
                 android:minHeight="100dp"
-                android:src="@drawable/add_photo" />
+                android:src="@drawable/ic_add_photo"
+                android:tint="@color/black"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginBottom="@dimen/default_margin"
+                android:layout_marginTop="@dimen/activity_default_margin"
+                android:layout_marginEnd="@dimen/activity_default_margin"
+                android:layout_marginStart="@dimen/activity_default_margin"
+                android:layout_marginBottom="@dimen/activity_default_margin"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
@@ -79,7 +83,7 @@
                     android:layout_height="wrap_content">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/project_create_activity_add_project_start"
+                        android:id="@+id/date_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_start"
@@ -91,27 +95,31 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/activity_default_margin"
                 android:background="@color/sectionDevider"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginBottom="@dimen/default_margin">
+                android:layout_marginEnd="@dimen/activity_default_margin"
+                android:layout_marginStart="@dimen/activity_default_margin"
+                android:layout_marginBottom="@dimen/activity_default_margin">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/section_title_address"/>
+                    android:text="@string/section_title_address"
+                    android:layout_marginBottom="@dimen/activity_default_margin"/>
                 <ImageButton
                     android:id="@+id/project_create_activity_add_current_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
                     android:contentDescription="@string/description_button_find_location"
                     android:layout_gravity="center"
-                    android:src="@drawable/address_gps_01" />
+                    android:src="@drawable/ic_location"
+                    android:tint="@color/black"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -143,18 +151,22 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/activity_default_margin"
                 android:background="@color/sectionDevider"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginStart="@dimen/default_margin">
+                android:layout_marginEnd="@dimen/activity_default_margin"
+                android:layout_marginStart="@dimen/activity_default_margin"
+                android:layout_marginBottom="@dimen/activity_default_margin"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_default_margin"
                     android:text="@string/section_title_other"/>
                 
                 <android.support.design.widget.TextInputLayout

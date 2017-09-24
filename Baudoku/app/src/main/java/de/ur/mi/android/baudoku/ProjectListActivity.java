@@ -1,9 +1,10 @@
 package de.ur.mi.android.baudoku;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,16 +25,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class ProjectListActivity extends AppCompatActivity {
 
     private static BaudokuDatabase db;
+    private Context context = this;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageButton btnCreateProject;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +57,30 @@ public class ProjectListActivity extends AppCompatActivity {
     }
 
     private void getUIElements() {
-        toolbar = (Toolbar) findViewById(R.id.project_list_activity_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.project_list_app_bar);
         tabLayout = (TabLayout) findViewById(R.id.project_list_activity_tabs);
         viewPager = (ViewPager) findViewById(R.id.project_list_activity_view_pager);
-        btnCreateProject = (ImageButton) findViewById(R.id.project_list_activity_button_create_project);
+        btnCreateProject = (ImageButton) findViewById(R.id.project_list_activity_btnCreate_project);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_project_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.project_list_menu_info:
+                Intent startAppInfoActivityIntent = new Intent(ProjectListActivity.this, AppInfoActivity.class);
+                startActivity(startAppInfoActivityIntent);
+            default:
+                break;
+        }
+
+        return true;
     }
 
     private void initUIElements() {
@@ -61,7 +89,7 @@ public class ProjectListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startProjectCreateActivityIntent = new Intent(ProjectListActivity.this, ProjectCreateActivity.class);
-                startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), -1);
+                startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), -1);
                 startActivity(startProjectCreateActivityIntent);
             }
         });
@@ -145,34 +173,22 @@ public class ProjectListActivity extends AppCompatActivity {
             projectsAdapter = new ProjectListAdapter(getContext(), projects);
             projectsList.setAdapter(projectsAdapter);
             projectsList.setEmptyView(emptyListText);
+            registerForContextMenu(projectsList);
         }
 
         private void setListeners() {
             projectsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    showProjectView(position);
-                }
-            });
-
-            projectsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    showContextMenue(position);
-                    return true;
+                    showProjectView(projects.get(position).getId());
                 }
             });
         }
 
-        private void showProjectView(int position) {
-            int id = projects.get(position).getId();
+        private void showProjectView(int id) {
             Intent startProjectViewActivityIntent = new Intent(getActivity(), ProjectViewActivity.class);
-            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), id);
+            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), id);
             getActivity().startActivity(startProjectViewActivityIntent);
-        }
-
-        private void showContextMenue(int position) {
-
         }
 
         public void refreshList() {
@@ -189,6 +205,54 @@ public class ProjectListActivity extends AppCompatActivity {
             projects.clear();
             projects.addAll(temp);
             projectsAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.context_menu_list, menu);
+        }
+
+        @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            ProjectItem selected = projects.get(info.position);
+            switch (item.getItemId()) {
+                case R.id.context_menu_edit:
+                    showProjectCreate(selected.getId());
+                    return true;
+                case R.id.context_menu_delete:
+                    makeDeleteDialog(selected);
+                    return true;
+                default:
+                    return super.onContextItemSelected(item);
+            }
+        }
+
+        private void showProjectCreate(int id) {
+            Intent startProjectCreateActivityIntent = new Intent(getActivity(), ProjectCreateActivity.class);
+            startProjectCreateActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), id);
+            startActivity(startProjectCreateActivityIntent);
+        }
+
+        private void makeDeleteDialog(final ProjectItem project) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(R.string.dialog_title_delete_project)
+                    .setMessage(R.string.dialog_text_delete_project)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.open();
+                            db.removeProjectItem(project.getId());
+                            db.close();
+                            refreshList();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
         }
     }
 
@@ -231,6 +295,12 @@ public class ProjectListActivity extends AppCompatActivity {
                 cityView.setText(project.getCity());
 
                 ImageView statusView = (ImageView) v.findViewById(R.id.project_list_item_status);
+                int status = project.getStatus();
+                if (status == -1) {
+                    statusView.setImageDrawable(context.getDrawable(R.drawable.ic_canceled));
+                } else if (status == 1) {
+                    statusView.setImageDrawable(context.getDrawable(R.drawable.ic_finished));
+                }
             }
 
             return v;

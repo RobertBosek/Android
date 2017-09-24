@@ -8,76 +8,46 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.design.widget.AppBarLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:paddingTop="@dimen/appbar_padding_top">
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/project_view_activity_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            app:expandedTitleMarginStart="@dimen/activity_default_margin"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/colorPrimary"
-            android:fitsSystemWindows="true">
+            app:contentScrim="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/project_view_activity_project_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/default_collapse"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="pin"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_default_project"
+                app:layout_collapseMode="parallax"/>
 
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/project_view_activity_toolbar"
+                android:id="@+id/project_view_app_bar"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="parallax">
-            </android.support.v7.widget.Toolbar>
+                layout="@layout/app_bar"/>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        tools:background="@color/colorPrimary">
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnCanceled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/cancel_02"
-            android:textColor="@color/colorAccent" />
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnDeleted"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/delete_01"
-            android:textColor="@color/colorAccent" />
-
-        <ImageButton
-            android:id="@+id/project_view_activity_btnFinished"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="0.18"
-            android:background="@color/colorAccent"
-            android:src="@drawable/ok_03" />
-
-    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_gravity="bottom"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/project_view_activity_view_pager"

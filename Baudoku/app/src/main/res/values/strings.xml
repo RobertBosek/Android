@@ -3,10 +3,19 @@
     <string name="label_start_activity_baudoku">BAUDOKU</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
-    <string name="intent_extra_key_project_id">projectId</string>
-    <string name="intent_extra_key_note_id">projectId</string>
+    <string name="toolbar_info">Info</string>
+    <string name="toolbar_project_edit">Projekt bearbeiten</string>
+    <string name="toolbar_project_finish">Projekt fertigstellen</string>
+    <string name="toolbar_project_cancel">Projekt abbrechen</string>
+    <string name="toolbar_project_delete">Projekt löschen</string>
+    <string name="toolbar_note_edit">Notiz bearbeiten</string>
+    <string name="toolbar_note_delete">Notiz löschen</string>
 
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="intent_extra_key_id_project">projectId</string>
+    <string name="intent_extra_key_id_note">noteId</string>
+
+    <string name="context_menu_edit">Bearbeiten</string>
+    <string name="context_menu_delete">Löschen</string>
 
     <string name="button_back">Zurück</string>
     <string name="button_save">Speichern</string>
@@ -17,6 +26,7 @@
     <string name="button_settings">Einstellungen</string>
 
     <string name="description_button_find_location">autofind location</string>
+    <string name="description_button_find_warther">autofind weather</string>
 
     <string name="label_title">Titel:</string>
     <string name="label_start">Projektbeginn:</string>
@@ -24,9 +34,10 @@
     <string name="label_city">Stadt:</string>
     <string name="label_client">Auftraggeber:</string>
     <string name="label_attendees">Anwesende:</string>
-
     <string name="label_date">Datum</string>
-    <string name="label_weather">Wetter:</string>
+    <string name="label_temperature">Temperatur:</string>
+    <string name="label_status">Status</string>
+
 
     <string name="section_title_address">Adresse</string>
     <string name="section_title_other">Sonstiges</string>
@@ -46,7 +57,8 @@
     <string name="dialog_text_missing_internet">Diese Funktion benötigt eine aktive Internetverbinung.</string>
 
     <string name="dialog_title_missing_input">Benötigte Daten fehlen</string>
-    <string name="dialog_text_missing_input">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+    <string name="dialog_text_missing_input_project">Zum Speichern eines Projekts werden Angaben zu Titel, Adresse und Datum benötigt.</string>
+    <string name="dialog_text_missing_input_note">Zum Speichern einer Notiz werden Angaben zu Datum, Temperatur und Wetter benötigt.</string>
 
     <string name="dialog_title_cancel_project">Projektabbruch</string>
     <string name="dialog_text_cancel_project">Soll das Projekt abgebrochen werden?</string>
@@ -56,6 +68,9 @@
 
     <string name="dialog_title_finish_project">Projektfertigstellung</string>
     <string name="dialog_text_finish_project">Wurde das Projekt fertiggestellt?</string>
+
+    <string name="dialog_title_delete_note">Notiz löschen</string>
+    <string name="dialog_text_delete_note">Die Notiz wird unwiderruflich gelöscht!</string>
 
 
     <string name="toast_on_failed_filecreation">Es konnte keine neue Datei erstellt werden.</string>

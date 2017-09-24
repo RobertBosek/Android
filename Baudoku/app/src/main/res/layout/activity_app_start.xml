@@ -20,9 +20,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/activity_default_margin"
+            android:layout_marginStart="@dimen/activity_default_margin"
+            android:layout_marginTop="@dimen/activity_default_margin"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -57,7 +57,8 @@
                     android:scaleX="1"
                     android:scaleY="1"
                     android:visibility="visible"
-                    app:srcCompat="@drawable/bau_symbol_02" />
+                    app:srcCompat="@drawable/ic_default_project"
+                    />
 
                 <ImageButton
                     android:id="@+id/project_start_activity_new_project_btn"

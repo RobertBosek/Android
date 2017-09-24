@@ -96,7 +96,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private void getExtras() {
         Bundle extras = getIntent().getExtras();
-        id = extras.getInt(getString(R.string.intent_extra_key_project_id));
+        id = extras.getInt(getString(R.string.intent_extra_key_id_project));
     }
 
     private void insertData() {
@@ -114,7 +114,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
         editImg = (ImageView) findViewById(R.id.project_create_activity_add_project_img);
 
         editTitle = (EditText) findViewById(R.id.project_create_activity_add_project_title);
-        editStart = (EditText) findViewById(R.id.project_create_activity_add_project_start);
+        editStart = (EditText) findViewById(R.id.date_edit);
         editAddress = (EditText) findViewById(R.id.project_create_activity_add_project_address);
         editCity = (EditText) findViewById(R.id.project_create_activity_add_project_city);
         editClient = (EditText) findViewById(R.id.project_create_activity_add_project_client);
@@ -126,6 +126,19 @@ public class ProjectCreateActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveInputProjectView();
+            }
+        });
+
         editImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,19 +154,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveInputProjectView();
-            }
-        });
 
         btnGetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,7 +361,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
             db.close();
 
             Intent startProjectViewActivityIntent = new Intent(ProjectCreateActivity.this, ProjectViewActivity.class);
-            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), id);
+            startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), id);
             startActivity(startProjectViewActivityIntent);
             finish();
         }
@@ -378,7 +379,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
     private void makeNecessaryInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.dialog_title_missing_input)
-                .setMessage(R.string.dialog_text_missing_input)
+                .setMessage(R.string.dialog_text_missing_input_project)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }

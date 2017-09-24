@@ -45,9 +45,9 @@ public class AppStartActivity extends AppCompatActivity {
         btnNewProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startNewProjectActivityIntent = new Intent(AppStartActivity.this, ProjectCreateActivity.class);
-                startNewProjectActivityIntent.putExtra(getString(R.string.intent_extra_key_project_id), -1);
-                startActivity(startNewProjectActivityIntent);
+                Intent startCreateProjectActivityIntent = new Intent(AppStartActivity.this, ProjectCreateActivity.class);
+                startCreateProjectActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), -1);
+                startActivity(startCreateProjectActivityIntent);
             }
         });
 
