@@ -5,14 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,6 +69,7 @@ public class NoteViewActivity extends AppCompatActivity {
         noteTemperature.setText(displayNote.getTemperature());
         ImageView noteWeatherIcon = (ImageView) findViewById(R.id.note_view_activity_weather);
         noteWeatherIcon.setImageDrawable(getDrawable(Integer.valueOf(displayNote.getWeather())));
+        noteWeatherIcon.setColorFilter(R.color.black);
         ImageView noteImg = (ImageView) findViewById(R.id.note_view_activity_img);
         ImageHelper.setPic(displayNote.getImgPath(), noteImg);
         btnPlayMemo = (ImageButton) findViewById(R.id.note_view_activity_btnPlayMemo);
@@ -149,7 +145,6 @@ public class NoteViewActivity extends AppCompatActivity {
 
     private void showProjectView() {
         Intent startProjectViewActivityIntent = new Intent(NoteViewActivity.this, ProjectViewActivity.class);
-        Log.d("lelnotep", String.valueOf(displayNote.getProjectID()));
         startProjectViewActivityIntent.putExtra(getString(R.string.intent_extra_key_id_project), displayNote.getProjectID());
         startActivity(startProjectViewActivityIntent);
         finish();

@@ -319,7 +319,7 @@ public class ProjectViewActivity extends AppCompatActivity {
             notes.addAll(temp);
             notesAdapter.notifyDataSetChanged();
         }
-/*
+
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
@@ -329,18 +329,21 @@ public class ProjectViewActivity extends AppCompatActivity {
 
         @Override
         public boolean onContextItemSelected(MenuItem item) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            NoteItem selected = notes.get(info.position);                // ArrayList notes ist hier null
-            switch (item.getItemId()) {                                  // eine Lösung der Grund wurde nicht gefunden
-                case R.id.context_menu_edit:
-                    showNoteCreate(selected.getId());
-                    return true;
-                case R.id.context_menu_delete:
-                    makeDeleteDialog(selected);
-                    return true;
-                default:
-                    return super.onContextItemSelected(item);
+            if (getUserVisibleHint()) {
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                NoteItem selected = notes.get(info.position);
+                switch (item.getItemId()) {
+                    case R.id.context_menu_edit:
+                        showNoteCreate(selected.getId());
+                        return true;
+                    case R.id.context_menu_delete:
+                        makeDeleteDialog(selected);
+                        return true;
+                    default:
+                        return super.onContextItemSelected(item);
+                }
             }
+            return false;
         }
 
         private void showNoteCreate(int id) {
@@ -356,7 +359,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             db.open();
-                            db.removeNoteItem(project.getId());
+                            db.removeNoteItem(note.getId());
                             db.close();
                             refreshList();
                         }
@@ -367,7 +370,7 @@ public class ProjectViewActivity extends AppCompatActivity {
                     })
                     .show();
         }
-*/
+
         private void initDetailsFragment() {
             getDetailsFragmentUIElements();
             setDetails();
@@ -384,7 +387,7 @@ public class ProjectViewActivity extends AppCompatActivity {
         private void setDetails() {
             startView.setText(project.getStart());
             addressView.setText(project.getAddress());
-            cityView.setText(project.getStart());
+            cityView.setText(project.getCity());
             clientView.setText(project.getClient());
             attendeesView.setText(project.getAttendees());
         }

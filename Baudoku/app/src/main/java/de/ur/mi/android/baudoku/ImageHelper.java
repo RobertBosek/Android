@@ -4,17 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.os.Build;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-
-import static android.R.attr.bitmap;
 
 public class ImageHelper {
 
     private static final String DEFAULT_IMAGE_PATH = "/storage/emulated/0/Android/data/de.ur.mi.android.baudoku/files/Pictures/20170918_182042814699927.jgp";
-
 
     public static void setPic(final String imgPath, final ImageView imgView) {
         if (!imgPath.equals("")) {
@@ -31,7 +26,6 @@ public class ImageHelper {
             }
         }
     }
-
 
     private static void setImageWithWidth(String imgPath, ImageView imgView) {
             if (imgPath.equals("")) {

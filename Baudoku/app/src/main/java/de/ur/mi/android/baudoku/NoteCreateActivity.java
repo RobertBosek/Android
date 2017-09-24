@@ -16,7 +16,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -313,7 +311,6 @@ public class NoteCreateActivity extends AppCompatActivity {
         task.execute(zip);
     }
 
-
     private void checkPermissionsCamera() {
         String cameraPermission = android.Manifest.permission.CAMERA;
         int permissionDenied = PackageManager.PERMISSION_DENIED;
@@ -373,24 +370,23 @@ public class NoteCreateActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_PERMISSION_CAMERA: {
+            case REQUEST_PERMISSION_CAMERA:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getImage();
                 }
-            }
-            case REQUEST_PERMISSION_AUDIO: {
+                break;
+            case REQUEST_PERMISSION_AUDIO:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupMemoRecording();
                 }
-            }
+                break;
+            default:
+                break;
         }
     }
-
-
 
     private void saveInputNoteView() {
         date = editDate.getText().toString();
@@ -422,7 +418,6 @@ public class NoteCreateActivity extends AppCompatActivity {
                 id = db.insertNoteItem(editNote);
             }
             db.close();
-            Log.d("lel", String.valueOf(id));
             Intent startNoteViewActivityIntent = new Intent(NoteCreateActivity.this, NoteViewActivity.class);
             startNoteViewActivityIntent.putExtra(getString(R.string.intent_extra_key_id_note), id);
             startActivity(startNoteViewActivityIntent);
@@ -503,11 +498,7 @@ public class NoteCreateActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             editTemperature.setText(temperature);
-            Log.d("lel", icon);
             final int resourceId = context.getResources().getIdentifier("ic_weather_" + icon.substring(0,2) + "d", "drawable", context.getPackageName());
-            Log.d("lel", String.valueOf(R.drawable.ic_weather_01d));
-            Log.d("lel", String.valueOf(resourceId));
-            Log.d("lel", "ic_weather_" + icon.substring(0,2) + "d.png");
             int spinnerPosition = adapter.getPosition(resourceId);
             spinner.setSelection(spinnerPosition);
         }

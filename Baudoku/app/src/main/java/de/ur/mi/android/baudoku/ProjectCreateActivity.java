@@ -21,7 +21,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -281,16 +280,18 @@ public class ProjectCreateActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_PERMISSION_LOCATION: {
+            case REQUEST_PERMISSION_LOCATION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkAvailability();
                 }
-            }
-            case REQUEST_PERMISSION_CAMERA: {
+                break;
+            case REQUEST_PERMISSION_CAMERA:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getImage();
                 }
-            }
+                break;
+            default:
+                break;
         }
     }
 
