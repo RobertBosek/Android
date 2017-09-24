@@ -49,11 +49,10 @@
                 android:id="@+id/project_create_activity_add_project_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimaryTransparent"
                 android:layout_gravity="center"
                 android:minHeight="100dp"
-                android:src="@drawable/ic_add_photo"
-                android:tint="@color/black"/>
+                android:src="@drawable/ic_add_photo"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +94,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/section_devider"
                 android:layout_marginTop="@dimen/activity_default_margin"
                 android:background="@color/sectionDevider"/>
             <LinearLayout
@@ -115,7 +114,7 @@
                     android:id="@+id/project_create_activity_add_current_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:backgroundTint="@color/colorPrimaryTransparent"
                     android:contentDescription="@string/description_button_find_location"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_location"
@@ -151,7 +150,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/section_devider"
                 android:layout_marginTop="@dimen/activity_default_margin"
                 android:background="@color/sectionDevider"/>
             <LinearLayout

@@ -3,10 +3,14 @@
     <dimen name="activity_default_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="default_collapse">200dp</dimen>
+    <dimen name="size_clickable">48dp</dimen>
+    <dimen name="section_devider">2dp</dimen>
+
+    <dimen name="text_size">18sp</dimen>
 
     <dimen name="tile_height">88dp</dimen>
 
-    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="padding">8dp</dimen>
     <dimen name="list_image_size">100dp</dimen>
 
     <dimen name="note_size">100dp</dimen>

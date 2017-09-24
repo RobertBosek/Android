@@ -5,13 +5,6 @@
     <color name="colorAccent">#30B8DB</color>
     <color name="colorPrimaryTransparent">#80505050</color>
     <color name="black">#000</color>
-    <color name="white">#ffffff</color>
     <color name="sectionDevider">#18000000</color>
-
-    //girlstyle
-    <color name="colorPrimaryGirl">#ff1493</color>
-    <color name="colorPrimaryDarkGirl">#ff69b4</color>
-    <color name="colorAccentGirl">#ffc0cb</color>
-
 
 </resources>

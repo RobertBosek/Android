@@ -3,12 +3,6 @@
     <string name="label_start_activity_baudoku">BAUDOKU</string>
     <string name="project_list_newProjectBtn">Neues Projekt erstellen</string>
 
-
-    <string name="project_style">Ändern Sie das Design Ihrer App:</string>
-    <string name="project_style_1">Default</string>
-    <string name="project_style_2">Mädchenstyle</string>
-    <string name="project_setting_style">Style einstellen</string>
-
     <string name="toolbar_info">Info</string>
     <string name="toolbar_project_edit">Projekt bearbeiten</string>
     <string name="toolbar_project_finish">Projekt fertigstellen</string>
@@ -42,6 +36,7 @@
     <string name="label_attendees">Anwesende:</string>
     <string name="label_date">Datum</string>
     <string name="label_temperature">Temperatur:</string>
+    <string name="label_weather">Wetter:</string>
     <string name="label_status">Status</string>
 
 
@@ -80,6 +75,8 @@
 
 
     <string name="toast_on_failed_filecreation">Es konnte keine neue Datei erstellt werden.</string>
+    <string name="toast_on_failed_recorder">Recorder konnte nicht vorbereitet werden.</string>
+    <string name="toast_on_failed_player">Wiedergabe konnte nicht vorbereitet werden.</string>
     <string name="toast_on_get_location">Auto-Adressfindung benötigt einige Sekunden</string>
     <string name="toast_on_delete_project">Projekt wurde gelöscht</string>
 

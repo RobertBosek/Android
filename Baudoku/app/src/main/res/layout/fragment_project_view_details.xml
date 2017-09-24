@@ -66,17 +66,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:layout_weight="1"
-                android:padding="7dp"
                 android:text="@string/label_city"
-                android:textSize="18sp" />
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/project_view_detail_city"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="7dp"
-                android:textSize="18sp"/>
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
 
@@ -88,18 +88,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:padding="7dp"
                 android:layout_weight="1"
                 android:text="@string/label_client"
-                android:textSize="18sp" />
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/project_view_detail_client"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="7dp"
-                android:textSize="18sp"/>
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
 
@@ -112,17 +112,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:layout_weight="1"
-                android:padding="7dp"
                 android:text="@string/label_attendees"
-                android:textSize="18sp" />
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size"  />
 
             <TextView
                 android:id="@+id/project_view_detail_attendees"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="7dp"
-                android:textSize="18sp"/>
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
 
     </LinearLayout>

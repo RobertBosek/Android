@@ -25,41 +25,49 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/label_date"/>
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/note_view_activity_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_date"/>
+                android:gravity="end"
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size" />
 
             <ImageView
                 android:id="@+id/note_view_activity_weather"
-                android:layout_width="@dimen/activity_default_margin"
-                android:layout_height="@dimen/activity_default_margin"
-                android:src="@drawable/info_01"/>
+                android:layout_width="@dimen/size_clickable"
+                android:layout_height="@dimen/size_clickable"
+                android:src="@drawable/ic_info"/>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/section_devider"
+            android:layout_marginTop="@dimen/activity_default_margin"
             android:background="@color/sectionDevider"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/section_title_image"
-            android:layout_marginStart="@dimen/activity_default_margin"/>
+            android:layout_marginStart="@dimen/activity_default_margin"
+            android:layout_marginBottom="@dimen/activity_default_margin"/>
 
         <ImageView
             android:id="@+id/note_view_activity_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_photo"/>
+            android:layout_marginBottom="@dimen/activity_default_margin"
+            android:src="@drawable/ic_default_note"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/section_devider"
+            android:layout_marginTop="@dimen/activity_default_margin"
             android:background="@color/sectionDevider"/>
 
         <LinearLayout
@@ -71,6 +79,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_default_margin"
                 android:text="@string/section_title_note_memo" />
             <ImageButton
                 android:id="@+id/note_view_activity_btnPlayMemo"
@@ -78,13 +87,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_default_margin"
                 android:layout_gravity="center"
-                android:src="@drawable/ok_03"/>
+                android:backgroundTint="@color/colorPrimaryTransparent"
+                android:src="@drawable/ic_play"
+                android:tint="@color/black"/>
             <TextView
                 android:id="@+id/note_view_activity_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/info_text_02"/>
-
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text_size"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

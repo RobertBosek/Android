@@ -1,11 +1,6 @@
 package de.ur.mi.android.baudoku;
 
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-
 public class ProjectItem implements Comparable<ProjectItem>{
 
     public static final int STATUS_PENDING = 0;

@@ -15,6 +15,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -73,6 +74,9 @@ public class ProjectViewActivity extends AppCompatActivity {
         db.open();
         project = db.getProjectItem(id);
         db.close();
+        Log.d("lelid", String.valueOf(id));
+        Log.d("lelproject", String.valueOf(project.getId()));
+
     }
 
     public void getUIElements() {
@@ -412,11 +416,13 @@ public class ProjectViewActivity extends AppCompatActivity {
 
             if (project != null) {
                 ImageView img = (ImageView) v.findViewById(R.id.project_view_note_item_img_view);
+                ImageHelper.setPic(note.getImgPath(), img);
                 TextView date = (TextView) v.findViewById(R.id.project_view_note_item_date_view);
                 date.setText(note.getDate());
                 TextView temp = (TextView) v.findViewById(R.id.project_view_note_item_date_temperature);
                 temp.setText(note.getTemperature());
                 ImageView weather = (ImageView) v.findViewById(R.id.project_view_note_item_weather);
+                weather.setImageDrawable(context.getResources().getDrawable(Integer.valueOf(note.getWeather())));
             }
 
             return v;

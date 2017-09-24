@@ -21,6 +21,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ import java.util.Locale;
 public class ProjectCreateActivity extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION_LOCATION = 0;
-    private static final int REQUEST_PERMISSION_PICTURE = 1;
+    private static final int REQUEST_PERMISSION_CAMERA = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 10;
 
     private ProjectItem editProject;
@@ -64,7 +65,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
 
     private int id;
     private String tempPath;
-    private String imgPath;
+    private String imgPath = null;
     private String title;
     private String start;
     private String address;
@@ -88,6 +89,17 @@ public class ProjectCreateActivity extends AppCompatActivity {
             db.close();
             insertData();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (imgPath != null) {
+            if (!imgPath.equals(editProject.getImgPath())) {
+                File toDelete = new File(imgPath);
+                toDelete.delete();
+            }
+        }
+        super.onBackPressed();
     }
 
     private void initDatabase() {
@@ -142,7 +154,7 @@ public class ProjectCreateActivity extends AppCompatActivity {
         editImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getImage();
+                checkPermissionsCamera();
             }
         });
         editStart.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -186,6 +198,16 @@ public class ProjectCreateActivity extends AppCompatActivity {
         };
     }
 
+    private void checkPermissionsCamera() {
+        String cameraPermission = android.Manifest.permission.CAMERA;
+        int permissionDenied = PackageManager.PERMISSION_DENIED;
+        if (ActivityCompat.checkSelfPermission(this, cameraPermission) == permissionDenied) {
+            this.requestPermissions(new String[]{cameraPermission}, REQUEST_PERMISSION_CAMERA);
+        } else {
+            getImage();
+        }
+    }
+
     private void getImage() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -217,7 +239,14 @@ public class ProjectCreateActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             ImageHelper.setPic(imgPath, editImg);
+            if (tempPath!= null) {
+                File toDelete = new File(tempPath);
+                toDelete.delete();
+            }
         } else {
+            File toDelete = new File(imgPath);
+            toDelete.delete();
+            imgPath = tempPath;
             Toast.makeText(this, R.string.toast_on_failed_filecreation, Toast.LENGTH_SHORT).show();
         }
     }
@@ -252,9 +281,14 @@ public class ProjectCreateActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case 0: {
+            case REQUEST_PERMISSION_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkAvailability();
+                }
+            }
+            case REQUEST_PERMISSION_CAMERA: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getImage();
                 }
             }
         }
