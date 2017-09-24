@@ -32,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/label_start_activity_baudoku"
                 android:textColor="@color/colorAccent"
@@ -51,6 +50,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="0.18"
                     android:background="@color/colorAccent"
+                    android:contentDescription="@drawable/ic_default_project"
                     app:srcCompat="@drawable/ic_default_project" />
 
 
@@ -67,6 +67,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="0.18"
                     android:background="@color/colorAccent"
+                    android:tint="@color/black"
                     app:srcCompat="@drawable/ic_add" />
 
 
@@ -83,6 +84,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="0.18"
                     android:background="@color/colorAccent"
+                    android:tint="@color/black"
                     android:src="@drawable/ic_info" />
 
 
