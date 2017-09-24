@@ -48,48 +48,43 @@
                     android:id="@+id/project_start_activity_project_list_btn"
                     style="@android:style/Widget.ImageButton"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="2dp"
+                    android:layout_height="100dp"
                     android:layout_weight="0.18"
                     android:background="@color/colorAccent"
-                    android:backgroundTint="@color/colorAccent"
-                    android:foregroundGravity="center"
-                    android:scaleX="1"
-                    android:scaleY="1"
-                    android:visibility="visible"
-                    app:srcCompat="@drawable/ic_default_project"
-                    />
+                    app:srcCompat="@drawable/ic_default_project" />
 
-                <ImageButton
-                    android:id="@+id/project_start_activity_new_project_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_weight="0.18"
-                    android:background="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_add" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp">
+
+                <ImageButton
+                    android:id="@+id/project_start_activity_new_project_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.18"
+                    android:background="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_add" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp">
 
                 <ImageButton
                     android:id="@+id/project_start_activity_app_info_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="2dp"
+                    android:layout_height="100dp"
                     android:layout_weight="0.18"
                     android:background="@color/colorAccent"
                     android:src="@drawable/ic_info" />
 
-                <ImageButton
-                    android:id="@+id/project_start_activity_app_settings_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_weight="0.18"
-                    android:background="@color/colorAccent"
-                    app:srcCompat="@drawable/settings_01" />
 
             </LinearLayout>
 

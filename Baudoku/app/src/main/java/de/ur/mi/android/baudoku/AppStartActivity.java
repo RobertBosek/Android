@@ -13,7 +13,7 @@ public class AppStartActivity extends AppCompatActivity {
     private ImageButton btnProjectList;
     private ImageButton btnNewProject;
     private ImageButton btnAppInfo;
-    private ImageButton btnAppSettings;
+
     private TextView bauDokuTextView;
 
     @Override
@@ -29,7 +29,7 @@ public class AppStartActivity extends AppCompatActivity {
         btnProjectList = (ImageButton) findViewById(R.id.project_start_activity_project_list_btn);
         btnNewProject = (ImageButton) findViewById(R.id.project_start_activity_new_project_btn);
         btnAppInfo = (ImageButton) findViewById(R.id.project_start_activity_app_info_btn);
-        btnAppSettings = (ImageButton) findViewById(R.id.project_start_activity_app_settings_btn);
+
     }
 
     private void initUIElements() {
@@ -59,13 +59,7 @@ public class AppStartActivity extends AppCompatActivity {
             }
         });
 
-        btnAppSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startAppSettingsActivityIntent = new Intent(AppStartActivity.this, AppSettingsActivity.class);
-                startActivity(startAppSettingsActivityIntent);
-            }
-        });
+
 
 
     }
